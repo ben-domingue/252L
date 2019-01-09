@@ -17,7 +17,7 @@ likelihood<-function(pars,x) { #see the first eqn here, http://mathworld.wolfram
     tmp/sqrt(2*pars[2]*pi)
 }
 
-##To completely evaluate this function, we would need to know x and pars. We only know x (this is the problem of estimation in general: what are the values in pars?).
+##To completely evaluate this function, we would need to know x and pars. We only know x (this is the problem of estimation in general: the values in pars are not known to us!).
 ##With known x, we can think of the likelihood as the "probability" of observing the draws x from a normal distribution with parameters pars.
 ##That is, we are thinking of the likelihood as a function of pars (x is known).
 
@@ -50,4 +50,4 @@ ll<-function(pars,x) {
 }
 optim(par=c(-2,2),ll,x=x)$par #these are the mean and variance estimates produced by maximum likelihood.
 
-#Q. How do our estimates vary in accuracy as a function of the sample size (change 100 to something much bigger and much smaller in the top line)
+#Q. How do our estimates vary in accuracy as a function of the sample size (change 100 to something much bigger and much smaller in the top line)? What does this connect to in your understanding of estimation theory (think standard error)?
