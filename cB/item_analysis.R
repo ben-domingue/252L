@@ -13,7 +13,7 @@ item_analysis<-function(resp) { #'resp' is just a generic item response matrix, 
 }
 
 ##let's start with an empirical dataset
-resp1<-read.table("https://github.com/ben-domingue/252L_winter2018/raw/master/data/emp-rasch.txt",header=FALSE)
+resp1<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
 out[[1]]<-item_analysis(resp1) #i'm passing the resp1 object to the item_analysis function. remind yourself what the item_analysis function will return and check your intuition against the next line
 out[[1]] #q. why the double brackets?
 ##q. what do we have here? what do you think?
@@ -36,7 +36,7 @@ out[[2]]<-item_analysis(resp2)
 ##q. how does the simulated data compare to our first empirical dataset?
 
 ##now a new empirical dataset
-resp3<-read.table("https://github.com/ben-domingue/252L_winter2018/raw/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)
+resp3<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)
 head(resp3) ##q. what do you think about the wisdom of applying item_analysis to resp3? does resp3 have any distinguishing features vis-a-vis resp1 or resp2?
 out[[3]]<-item_analysis(resp3) #no errors! but, does that mean all is well?
 

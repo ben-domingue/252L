@@ -1,5 +1,5 @@
 ##let's start with an empirical dataset
-resp<-read.table("https://github.com/ben-domingue/252L_winter2018/raw/master/data/emp-rasch.txt",header=FALSE)
+resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
 resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs
 
 get.coors<-function(resp) {
