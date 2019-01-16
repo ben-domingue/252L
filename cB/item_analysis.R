@@ -39,7 +39,6 @@ test<-matrix(runif(ni*np),np,ni) #what do we have here?
 resp2<-ifelse(pr>test,1,0) #what bit of magic was this?
 #############################################################
 out[[2]]<-item_analysis(resp2)
-##q. how does the simulated data compare to our first empirical dataset?
 
 ##now a new empirical dataset
 resp3<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)
@@ -55,11 +54,12 @@ out[[4]]<-item_analysis(resp4)
 ##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 pf<-function(x) {
-    plot(density(x[,1]),xlim=c(0,1),xlab="density, p-values")
-    plot(density(x[,2]),xlim=c(0,1),xlab="density, item-total correlations")
+    plot(density(x[,1]),xlim=c(0,1),xlab="density, p-values",main="")
+    plot(density(x[,2]),xlim=c(0,1),xlab="density, item-total correlations",main="")
 }
 lapply(out,pf) #lapply is a dear friend of mine!
 ##q. what do you note about the ctt statistics for the different datasets
+##q. how does the simulated data compare to our first empirical dataset?
 
 ##time permitting:
 ##q. can you rewrite item_analysis() so that it computes the correlations between an item after removing that item from the sum score?
