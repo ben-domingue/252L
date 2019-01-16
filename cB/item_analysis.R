@@ -1,24 +1,29 @@
+##GOAL: what do CTT item fit statistics look like in item responses datasets with qualitatively different features?
+
 out<-list() #lists are really useful!! this just initializes this one so that we can use it later. read more @ http://www.r-tutor.com/r-introduction/list
 
 ##CTT item analysis
 ##this function will compute CTT item statistics for a generic item response matrix
-item_analysis<-function(resp) { #'resp' is just a generic item response matrix, rows are people columns are items
+item_analysis<-function(resp) { #'resp' is just a generic item response matrix, rows are people, columns are items
     pv<-colMeans(resp,na.rm=TRUE) #simple "p-values", which in psychometrics tends to just mean the mean number of points for an item
     r.xt<-numeric() #initializing a vector
     rowSums(resp,na.rm=TRUE)->ss #these are the sum scores/observed scores
     for (i in 1:ncol(resp)) {
-        cor(ss,resp[,i],use='p')->r.xt[i]
+        cor(ss,resp[,i],use='p')->r.xt[i] #this is the correlations between the i-th item (resp[,i]) and the total score (ss)
     }
-    cbind(pv,r.xt) #i'll return a matrix consisting of the p-values and the item/total correlations
+    cbind(pv,r.xt) #returning a matrix consisting of the p-values and the item/total correlations
 }
+##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens in the above.
 
 ##let's start with an empirical dataset
 resp1<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
 out[[1]]<-item_analysis(resp1) #i'm passing the resp1 object to the item_analysis function. remind yourself what the item_analysis function will return and check your intuition against the next line
-out[[1]] #q. why the double brackets?
+out[[1]] #q. why the double brackets? [hint: it has to do with the fact that "out" is a list]
 ##q. what do we have here? what do you think?
 
-##code to simulate item response data
+##code to simulate item response data. just run this block for a moment, don't feel the need to look at it in detail
+#############################################################
+##feel free to ignore between the above line and the similar below line
 ni<-ncol(resp1)
 np<-nrow(resp1)
 set.seed(12311) #this is to ensure that we all draw the same random numbers downstream
@@ -32,6 +37,7 @@ pr<-inv_logit(a*th.mat+b.mat) ##the probability of a correct response
 ##watch closely now
 test<-matrix(runif(ni*np),np,ni) #what do we have here?
 resp2<-ifelse(pr>test,1,0) #what bit of magic was this?
+#############################################################
 out[[2]]<-item_analysis(resp2)
 ##q. how does the simulated data compare to our first empirical dataset?
 
@@ -46,6 +52,7 @@ ncat #what is this?
 resp3[,ncat==2]->resp4
 out[[4]]<-item_analysis(resp4)
 
+##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 pf<-function(x) {
     plot(density(x[,1]),xlim=c(0,1),xlab="density, p-values")
