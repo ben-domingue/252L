@@ -2,7 +2,7 @@
 ##we'll do that in two ways, the first mainly as a jumping off point for the second.
 ##first, we'll flip coins.
 
-source("https://raw.githubusercontent.com/ben-domingue/252L_winter2018/master/helper/cronbachs_alpha.R") 
+source("https://raw.githubusercontent.com/ben-domingue/252L/master/helper/cronbachs_alpha.R") 
 
 ###################################################################################################################
 ##what if we consider coin flips?
