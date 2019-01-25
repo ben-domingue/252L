@@ -1,3 +1,5 @@
+#see also: https://docs.google.com/document/d/1GlkT7GZFi3PUezgerUQUj1YJsUlgOdeUGUe-nALoMe4/edit
+
 ######################################################################################
 ##1
 ##let's first look at the mean correlations
@@ -25,7 +27,16 @@ par(mfrow=c(1,2))
 plot(density(residuals(m1,type="response")))
 plot(density(residuals(m2,type="response"))) ##m2 was actually simulated to have a lower asymptote such that one never had less than pr(1)=0.2, hence the asymmetry.
 
+
 ##now, in terms of fit, looking at AIC is frequently people's first instinct. i would encourage resistance here. it isn't that aic can never be useful, but i generally find applications of such information criteria (AIC, BIC, DIC) to be utterly unintuitive. on the other hand, working with something like residuals is relatively straightforward: we know where these came from! moreover, AIC is usually used when one is fitting a series of models to the same data. here, we are fitting the same model to two different datasets. AIC is not useful in such a context given that it is based on the log-likelihood, a value whose scale is entirely data-dependent. 
+
+##coefficients
+load("ps1-logreg.Rdata")
+glm(y1~x,df,family="binomial")->m1
+exp(coef(m1)[2])
+pr<-function(x) exp(x)/(1+exp(x))
+pr(-2)/(1-pr(-2))
+
 
 ######################################################################################
 ##3. 
