@@ -1,3 +1,11 @@
+##goal: to recreate something like Table 1 from Wu & Adams
+##to do that, we need to do the following things:
+##1. simulate data
+##2. estimate rash model for that simulated data
+##3. compute fit statistics
+##we're going to build some functions to do all of that below and then put things together in a simulation study.
+
+
 # Simulating data --------------------------------------------------------------
 ## Here is the function we are going to use to simulate data for the Rasch model. As time permits, make sure you can figure out
 ## how this works and what each of the arguments 'does'. We've finally gotten far enough into the course where everything here
@@ -11,11 +19,11 @@ sim_rasch <- function(n.items, n.people, mean.item.diff = 0) {
   test <- matrix(runif(N), n.people, n.items)
   resp <- ifelse(pr > test, 1, 0)
   colnames(resp) <- paste("i.", 1:ncol(resp))
-  resp <- resp[rowSums(resp) != 0 & rowSums(resp) != n.items, ] # can you figure out why this is necessary?
+  resp <- resp[rowSums(resp) != 0 & rowSums(resp) != n.items, ] # can you figure out why this might be necessary?
   resp
 }
 
-resp <- sim_rasch(20, 100) # PAUSE AND LOOK AT WHAT RESP LOOKS LIKE
+resp <- sim_rasch(20, 100) # PAUSE AND LOOK AT WHAT resp LOOKS LIKE
 
 # Estimating the Rasch model ----------------------------------------------
 ## Let's write a function to estimate the Rasch model with the 'resp' matrix
@@ -32,7 +40,7 @@ est_rasch <- function(resp) {
   list(theta = theta, pars = pars[, 2])
 }
 
-est <- est_rasch(resp) # PAUSE AND LOOK AT EST
+est <- est_rasch(resp) # PAUSE AND LOOK AT est
 
 # Estimated probabilities -----------------------------------------------------------
 ## To compute fit, we need to compute the estimated probability of a correct response so that we can compute residuals (remember
@@ -46,12 +54,12 @@ get_p <- function(est) {
   kern/(1 + kern)
 }
 
-p <- get_p(est) # PAUSE AND LOOK AT P
+p <- get_p(est) # PAUSE AND LOOK AT p
 
 # Compute item fit statistics ---------------------------------------------
 ## Now here is a function that will compute item fit statistics based on responses and estimated probabilities of correct
 ## responses these are known as 'outfit' fit statistics, developed by Ben Wright (the original source of Rasch model thinking in
-## the US and my advisor's advisor's advisor [wright->wilson->briggs->domingue->stenhaug])
+## the US and my advisor's advisor's advisor [wright->wilson->briggs->domingue])
 
 fit_stat <- function(resp, p) {
   q <- 1 - p
@@ -60,8 +68,7 @@ fit_stat <- function(resp, p) {
   fit.u
 }
 
-fit <- fit_stat(resp, p) # PAUSE AND LOOK AT FIT
-
+fit <- fit_stat(resp, p) # PAUSE AND LOOK AT fit
 
 # Null distribution -------------------------------------------------------
 ## Let's take a first look at the null distribution of these fit statistics 
@@ -93,12 +100,12 @@ for (np in c(100, 200, 400, 600, 800, 1000)) {
 }
 
 do.call("rbind", out)
-## congrat btw! you've just completed your first psychometric simulation study ;)
+
 
 ## So we've now worked out the critical values of the distribution of the outfit statistics under the null. Are you surprised by
 ## the behavior of these as a function of the number of people?
 
-## Results from this analysis can be compared to Table 1 from Wu & Adams They don't match exactly. Any theories as to why our
-## results differ?
+## Results from this analysis can be compared to Table 1 from Wu & Adams (specifically their column based on 20 items).
+## They don't match exactly (but they should be fairly close). Any theories as to why our results differ?
 
-## Take a look here http://www.rasch.org/rmt/rmt83b.htm
+## Take a look here and see if you agree with their recommendations:  http://www.rasch.org/rmt/rmt83b.htm

@@ -4,8 +4,6 @@
 
 resp <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
 
-# Analyzing one dataset ---------------------------------------------------
-
 ## fit the rasch model
 library(mirt) # might have to run install.packages("mirt")
 m1 <- mirt(resp1, 1, itemtype = "Rasch")
