@@ -2,7 +2,7 @@
 ## this will be our maiden voyage estimating IRT models the main goal is to get oriented with the key output 
 ## that we get from applications of these models to item response data
 
-resp <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
+resp1 <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
 
 ## fit the rasch model
 library(mirt) # might have to run install.packages("mirt")
