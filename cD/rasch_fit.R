@@ -1,7 +1,7 @@
 ##goal: to recreate something like Table 1 from Wu & Adams
 ##to do that, we need to do the following things:
 ##1. simulate data
-##2. estimate rash model for that simulated data
+##2. estimate rasch model for that simulated data
 ##3. compute fit statistics
 ##we're going to build some functions to do all of that below and then put things together in a simulation study.
 

@@ -36,4 +36,3 @@ get_coef(m1)
 itemfit(m1, empirical.plot = 3)
 
 
-## question: where are estimates of ability (theta)?
