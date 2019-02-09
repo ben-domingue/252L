@@ -27,4 +27,4 @@ get_coef<-function(mod) {
     co[-length(co)]->co
     do.call("rbind",co)
 }
-plot(b,get_coef(m)[,2],xlab="true difficulties",ylab="estimated difficulties",pch=19); abline(0,1) #now we are going to compare true and estimated item parameters
+plot(-1*b,-1*get_coef(m)[,2],xlab="true difficulties",ylab="estimated difficulties",pch=19); abline(0,1) #now we are going to compare true and estimated item parameters
