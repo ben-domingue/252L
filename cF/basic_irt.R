@@ -22,7 +22,7 @@ b.mat<-matrix(b,np,ni,byrow=TRUE) #these are the item difficulties
 
 ################################################################
 ##now we have to put this stuff together. what we want is a probability of a correct response for a person to an item
-##we're goign to use what you may know from logistic regression
+##we're going to use what you may know from logistic regression
 inv_logit<-function(x) exp(x)/(1+exp(x))
 ##now the probability of a correct response is:
 pr<-inv_logit(a.mat*(th.mat+b.mat)) #note this is pairwise multiplication not matrix multiplication
@@ -30,10 +30,10 @@ pr<-inv_logit(a.mat*(th.mat+b.mat)) #note this is pairwise multiplication not ma
 ##here is the kind of sneaky way i like to do it.
 test<-matrix(runif(ni*np),np,ni)
 resp<-ifelse(pr>test,1,0)
+resp<-data.frame(resp)
 
 ################################################################
-##we're going to now consider a prototype of an item response model
-##bump up the sample size to a reasonable level before you do this.
+##we're going to now consider a practically infeasible method of estimating item parameters (we wouldn't actually have theta)
 coefs<-list()
 for (i in 1:ncol(resp)) {
     glm(resp[,i]~th,family="binomial")->mod
@@ -41,6 +41,7 @@ for (i in 1:ncol(resp)) {
 }
 do.call("rbind",coefs)->coefs
 ##what do we have here?
+
 
 plot(b,coefs[,1]); abline(0,1) #how about this?
 
@@ -50,7 +51,8 @@ plot(b,coefs[,1]); abline(0,1) #how about this?
 ##so let's estimate parameters & abilities abilities
 library(mirt)
 mod<-mirt(resp,1,itemtype="2PL")
-coef(mod) ##see variation in the slopes? is there a lot or a little? how could we change this?
+coef(mod) 
+plot(mod,type="trace") ##see variation in the slopes? is there a lot or a little? how could we change this?
 ##now let's get theta values
 theta<-fscores(mod,full.scores.SE=TRUE) ##what flavor scores are these?
 par(mfrow=c(1,2))
