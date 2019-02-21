@@ -33,22 +33,23 @@ compare(resp)
 ##Question: how much of this would you be able to know how to do if you didn't know the specific form of misfit here?
 
 
-##How does this depend on choice of item response model? i would suggest focusing on the rasch and 2pl [confirm that i am not simulating any guessing]
+##How does this depend on choice of item response model used for parameter recovery (not data generation, be sure to keep the distinction between these two front and center)?
+##i would suggest focusing on the rasch and 2pl [note that i am not simulating any guessing]
 par(mfrow=c(2,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 sim_md(N=2000,n=50,A=2)->resp
 compare(resp,itemtype="Rasch")
 sim_md(N=2000,n=50,A=2)->resp
 compare(resp,itemtype="2PL")
 
-##For fun let's now estimate the right model
-sim_md(N=5000)->resp
+## ##For fun let's now estimate the right model
+## sim_md(N=5000)->resp
 
-mirt(resp$resp,2,"2PL")->mod
-coef(mod)->co
-co[-length(co)]->co
-do.call("rbind",co)->co
-plot(co[,1],pch=19,ylim=c(-2,2))
-points(co[,2],pch=19,col="red") #subtle things are afoot here. if you know anything about factor analysis, the reason this isn't quite what you expect is related to the idea of "rotation"
+## mirt(resp$resp,2,"2PL")->mod
+## coef(mod)->co
+## co[-length(co)]->co
+## do.call("rbind",co)->co
+## plot(co[,1],pch=19,ylim=c(-2,2))
+## points(co[,2],pch=19,col="red") #subtle things are afoot here. if you know anything about factor analysis, the reason this isn't quite what you expect is related to the idea of "rotation"
 
 
 

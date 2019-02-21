@@ -1,4 +1,4 @@
-##This is a function that will generate item response data based on a combination of unidimensional and  multidimensional models.
+##This is a function that will embed local dependencies in item responses (in particular, it's a kind of 'hot hand' effect)
 sim_ld<-function(N=1000,n=10,
                  per=.1 #this will be a parameter such that your performance on the last item influences your performance on this item
                  ) {
