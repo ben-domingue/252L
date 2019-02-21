@@ -41,6 +41,15 @@ compare(resp,itemtype="Rasch")
 sim_md(N=2000,n=50,A=2)->resp
 compare(resp,itemtype="2PL")
 
+
+par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
+sim_md(N=2000,r=0,n=50,A=2)->resp
+compare(resp,itemtype="Rasch")
+sim_md(N=2000,r=1,n=50,A=2)->resp
+compare(resp,itemtype="Rasch")
+sim_md(N=2000,n=50,A=2)->resp
+compare(resp,itemtype="2PL")
+
 ## ##For fun let's now estimate the right model
 ## sim_md(N=5000)->resp
 
