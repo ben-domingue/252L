@@ -19,8 +19,13 @@ for (i in 1:3) {
     resp->tmp
     ifelse(tmp[,2]>=i,1,0)->tmp[,2]
     mod <- mirt(tmp, itemtype="gpcmIRT",1)
-    extr.2 <- extract.item(mod, 2)
-    info.tmp <- iteminfo(extr.2, Theta)
+    #extr.2 <- extract.item(mod, 2)
+    #info.tmp <- iteminfo(extr.2, Theta)
+    co<-coef(mod)[[2]]
+    kern<-co[1]*(Theta-co[2])
+    exp(kern)->ek
+    p<-ek/(1+ek)
+    info.tmp<-co[1]^2*p*(1-p)
     lines(Theta,info.tmp,col="red")
 } #how does information of dichotomized versions compare to overall info
 
