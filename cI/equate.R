@@ -141,10 +141,10 @@ co(m2)->m2
 m1[21:30,]
 m2[1:10,]
 par(mfrow=c(2,2),mar=c(3,3,1,1),mgp=c(2,1,0))
-plot(m1[21:30,1],m2[1:10,1],pch=19); abline(0,1)
-plot(m1[21:30,2],m2[1:10,2],pch=19); abline(0,1)
-plot(m1[21:30,3],m2[1:10,3],pch=19); abline(0,1)
-plot(density(rowSums(r1)),lwd=2,xlim=c(0,35),main="")
+plot(m1[21:30,1],m2[1:10,1],pch=19,xlab="test1",ylab="test2",main="discrimination"); abline(0,1)
+plot(m1[21:30,2],m2[1:10,2],pch=19,xlab="test1",ylab="test2",main="difficulty"); abline(0,1)
+plot(m1[21:30,3],m2[1:10,3],pch=19,xlab="test1",ylab="test2",main="guessting"); abline(0,1)
+plot(density(rowSums(r1)),lwd=2,xlim=c(0,35),main="density of sum scores")
 lines(density(rowSums(r2)),lwd=2,col='red')
 
 ## now let's look at the TCC
@@ -161,7 +161,7 @@ tcc(m2[1:10,])->tcc2.sub
 lines(tcc2.sub,col="red",lwd=3)
 for (i in seq(-4,4,by=1)) abline(v=i,lwd=.4)
 for (j in seq(0,100,by=5)) abline(h=j,lwd=.4)
-plot(density(s1),lwd=2,xlim=c(-3,3),main="")
+plot(density(s1),lwd=2,xlim=c(-3,3),main="theta")
 lines(density(s2),lwd=2,col='red')
 ##top left, TCC for all items in each group (black is first group)
 ##top right, TCC on common items
@@ -202,7 +202,7 @@ lines(tcc(m2[1:10,]),col="red",lty=2,lwd=3)
 legend("topleft",lty=c(1,2),c("original","transformed"))
 for (i in seq(-4,4,by=1)) abline(v=i,lwd=.4)
 for (j in seq(0,100,by=5)) abline(h=j,lwd=.4)
-plot(density(s1),lwd=2,xlim=c(-3,3),main="")
+plot(density(s1),lwd=2,xlim=c(-3,3),main="theta")
 lines(density(A*s2-B),lwd=2,col='red')
 ##red curves are now TCC before/after equating (solid/dashed)
 
