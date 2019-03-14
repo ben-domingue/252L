@@ -33,3 +33,5 @@ for (i in 1:3) {
 for (i in 1:ncol(resp)) ifelse(resp[,i]>2,2,resp[,i])->resp[,i]
 ##1. what is the effect of dichotomizing low (e.g., responses of 1 and 2 become 1) versus high (e.g., responses of 0 and 1 become 0) on the central tendency and spread of information curves.
 ##2. how do standard errors for theta compare when we estimate the GPCM on the data versus low and high dichotimizations?
+
+

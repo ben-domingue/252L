@@ -14,6 +14,7 @@ sim_fun(theta=theta,pars=pars)->resp
 rm("theta")
 rm("pars")
 ##so we're only going to be able to examine byproducts of the empirical data (i.e., the 'resp' matrix)
+##super important that you catch what has happened here!!!
 
 Qfun<-function(resp) rowSums(resp) #this is going to be the generalized version of a fit statistic
 Qfun(resp)->Q
@@ -31,7 +32,7 @@ lapply(Ql,function(x) table(factor(x,levels=0:n))/length(x))->L
 for (i in 1:length(L)) data.frame(ss=names(L[[i]]),freq=as.numeric(L[[i]]))->L[[i]]
 data.frame(do.call("rbind",L))->L
 as.numeric(as.character(L$ss))->L$ss
-boxplot(freq~ss,L)
+boxplot(freq~ss,L,xlab="sum score",ylab="density")
 table(factor(Q,levels=0:n,ordered=TRUE))->tab
 lines(0:n,as.numeric(tab)/length(Q),col="red",lwd=2)
 ##so things look quite nice!

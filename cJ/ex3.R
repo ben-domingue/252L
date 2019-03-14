@@ -9,7 +9,8 @@ rnorm(N)->theta
 cbind(1,rnorm(n),0)->pars
 sim_fun(theta=theta,pars=pars)->resp.rasch
                                         #for 2pl simulation
-cbind(runif(n,min=.5,max=1.5),rnorm(n),0)->pars
+#cbind(runif(n,min=.5,max=1.5),rnorm(n),0)->pars
+cbind(exp(rnorm(n,sd=.3)),rnorm(n),0)->pars
 sim_fun(theta=theta,pars=pars)->resp.2pl
 
 
@@ -46,7 +47,7 @@ f<-function(resp) {
                                         #these were item-by-item plots that had some value but were more difficult to follow.
         #boxplot(cor~item,tmp,ylim=c(.2,.6))
         #lines(QQ,col="red")
-        hist(tmp[,1],xlim=c(0,1),breaks=50,freq=FALSE)
+        hist(tmp[,1],xlim=c(0,1),breaks=50,freq=FALSE,xlab="correlation",main=ifelse(ii==1,"Rasch","2PL"))
         lines(density(QQ),col="red",lwd=4)
     }
 }
