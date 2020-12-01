@@ -30,20 +30,20 @@ get_coef<-function(mod) {
     co[-length(co)]->co
     do.call("rbind",co)
 }
-plot(b,get_coef(m)[,2]); abline(0,1) #now we are going to compare true and estimated item parameters
+plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) #now we are going to compare true and estimated item parameters
 
 ##now, the normal cdf
 b<-rnorm(50)
 resp<-sim_data(b=b,link=pnorm) #note we are sending a different link. what is this sigmoid?
 m<-mirt(resp,1,itemtype="Rasch")
-plot(b,get_coef(m)[,2]); abline(0,1) 
-abline(0,1.7,col="red") ##what is this?
+plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) 
+abline(0,1.7,col="red") ##what is this? [https://journals.sagepub.com/doi/10.3102/10769986019003293]
 
 ##something with heavy tails
 b<-rnorm(50)
 resp<-sim_data(b=b,link=function(x) pt(x,df=50)) #an even differenter link!
 m<-mirt(resp,1,itemtype="Rasch")
-plot(b,get_coef(m)[,2]); abline(0,1) 
+plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) 
 
 ##skew
 library(sn)
@@ -53,4 +53,4 @@ plot(x,psn(x,alpha=3),type="l") #corresponding icc
 b<-rnorm(50)
 resp<-sim_data(b=b,link=function(x) dsn(x,alpha=3)) #now we've really gone overboard ;)
 m<-mirt(resp,1,itemtype="Rasch")
-plot(b,get_coef(m)[,2]); abline(0,1) #hm, what is going on here? can we make sense of why parameter estimation is quite bad when b is large
+plot(b,get_coef(m)[,2]),xlab="true diff",ylab="est diff"; abline(0,1) #hm, what is going on here? can we make sense of why parameter estimation is quite bad when b is large
