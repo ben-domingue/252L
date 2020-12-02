@@ -2,7 +2,15 @@
 ##we'll do that in two ways, the first mainly as a jumping off point for the second.
 ##first, we'll flip coins.
 
-source("https://raw.githubusercontent.com/ben-domingue/252L/master/helper/cronbachs_alpha.R") 
+##source("https://raw.githubusercontent.com/ben-domingue/252L/master/helper/cronbachs_alpha.R") 
+##kr20 is a function that computes the kr20 version of cronbach's alpha
+kr20<-function(resp) {
+    k<-ncol(resp)
+    p<-colMeans(resp,na.rm=TRUE)
+    q<-1-p
+    o<-rowSums(resp)
+    (k/(k-1))*(1-sum(p*q)/var(o))
+}
 
 ###################################################################################################################
 ##what if we consider coin flips?
@@ -32,9 +40,9 @@ mtext(side=1,line=.5,"from coin flips")
 ##now, we were kind of cheating with the coins. we didn't really impose any structure on the thing and this isn't really demonstrating something too weird about ctt, just that coin flips aren't reliable measures!
 
 ##let's give ourselves a stiffer challenge. let's generate item response data that has
-##A. a pre-specified reliability
+##A. a pre-specified reliability (in terms of the percentage of observed variation that is due to true score variation)
 ##B. and yet weird inter-workings such that reliability estimates fall apart completely
-##C. [i don't really emphasize this in the below, but you can also pick (roughly) the distribution of item p-values]
+##C. [i don't really emphasize this in the below, but you can also (roughly) specify the distribution of item p-values]
 ##below i'm going to do just that using this function.
 sim_ctt<-function(N.items, #N.items needs to be even
                   N.ppl,
@@ -90,7 +98,9 @@ N.ppl<-500
 s2.true<-10
 s2.error<-3
 alph<-list()
-for (i in 1:10) {
+alph[[1]]<-sim_ctt(N.items=N.items,N.ppl=N.ppl,s2.true=s2.true,s2.error=s2.error,check=TRUE) #note, the check option is goign to produce a figure that allows us to check the marginals to make sure things are looking ok
+
+for (i in 2:10) {
     alph[[i]]<-sim_ctt(N.items=N.items,N.ppl=N.ppl,s2.true=s2.true,s2.error=s2.error,check=TRUE) #note, the check option is goign to produce a figure that allows us to check the marginals to make sure things are looking ok
 }
 do.call("rbind",alph)->alph
