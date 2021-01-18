@@ -6,6 +6,7 @@ resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs
 
 ##we are going to define a function below
 ##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens in the above.
+##this function will take a response matrix in, compute ths sum scores (using rowSums), and then loop over the columns to compute correlations between item responses and sum scores. it'll then return the vector of correlations (r.xt)
 get.coors<-function(resp) {
     r.xt<-numeric() #initializing a numeric vector
     ss<-rowSums(resp) #these are the sum scores/observed scores of CTT
@@ -31,18 +32,6 @@ plot.fun<-function(resp) { #don't worry too much about the details here in the f
     NULL
 }
 plot.fun(resp)
+##q. what do you think about the distribution of p-values in this empirical dataset?
 ##q. what do you notice about the relationship between item p-value and item-total correlation?
-##q. could this be driven by the fact that the item is included in the calculation of the sum score (you can check this empirically if you like)
 
-
-
-##if you'd like, you can run the below. this will simulate item response data via an IRT model. we can use this to test whether it is something unique about the empirical data that leads to the above observation
-set.seed(12311)
-th<-matrix(rnorm(50000),1000,50,byrow=FALSE)
-diff<-matrix<-matrix(rnorm(10),1000,50,byrow=TRUE)
-kern<- exp(th - diff)
-pr<-kern/(1+kern)
-test<-matrix(runif(1000),1000,50)
-x2<-ifelse(pr>test,1,0)
-
-plot.fun(x2)

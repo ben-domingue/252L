@@ -43,7 +43,7 @@ out[[2]]<-item_analysis(resp2)
 ##now a new empirical dataset
 resp3<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)
 head(resp3) ##q. what do you think about the wisdom of applying item_analysis to resp3? does resp3 have any distinguishing features vis-a-vis resp1 or resp2?
-out[[3]]<-item_analysis(resp3) #no errors! but, does that mean all is well?
+out[[3]]<-item_analysis(resp3) 
 
 ##q. what if you cut the non-dichotomous items out of this data?
 apply(resp3,2,function(x) length(table(x)))->ncat
@@ -54,8 +54,8 @@ out[[4]]<-item_analysis(resp4)
 ##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 pf<-function(x) {
-    plot(density(x[,1]),xlim=c(0,1),xlab="density, p-values",main="")
-    plot(density(x[,2]),xlim=c(0,1),xlab="density, item-total correlations",main="")
+    hist(x[,1],xlab="p-values",main='')
+    plot(density(x[,2]),xlim=c(0,1),xlab="item-total correlations",main="")
 }
 lapply(out,pf) #lapply is a dear friend of mine!
 ##q. what do you note about the ctt statistics for the different datasets
