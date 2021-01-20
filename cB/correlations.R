@@ -2,10 +2,10 @@
 
 ##let's start with an empirical dataset
 resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
-resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs
+resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs (i am omitting any respondents who skipped an item)
 
 ##we are going to define a function below
-##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens in the above.
+##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens below.
 ##this function will take a response matrix in, compute ths sum scores (using rowSums), and then loop over the columns to compute correlations between item responses and sum scores. it'll then return the vector of correlations (r.xt)
 get.coors<-function(resp) {
     r.xt<-numeric() #initializing a numeric vector

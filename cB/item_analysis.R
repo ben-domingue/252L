@@ -3,7 +3,7 @@
 out<-list() #lists are really useful!! this just initializes this one so that we can use it later. read more @ http://www.r-tutor.com/r-introduction/list
 
 ##CTT item analysis
-##this function will compute CTT item statistics for a generic item response matrix
+##this function will compute CTT item statistics for a generic item response matrix. it leverages what we had from correlations.R and adds calculation of p-values to that.
 item_analysis<-function(resp) { #'resp' is just a generic item response matrix, rows are people, columns are items
     pv<-colMeans(resp,na.rm=TRUE) #simple "p-values", which in psychometrics tends to just mean the mean number of points for an item
     r.xt<-numeric() #initializing a vector
@@ -13,7 +13,6 @@ item_analysis<-function(resp) { #'resp' is just a generic item response matrix, 
     }
     cbind(pv,r.xt) #returning a matrix consisting of the p-values and the item/total correlations
 }
-##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens in the above.
 
 ##let's start with an empirical dataset
 resp1<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
