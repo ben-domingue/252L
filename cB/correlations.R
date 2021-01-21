@@ -19,7 +19,6 @@ get.coors<-function(resp) {
     ## }
     r.xt
 }
-##q. why might we be interested in the correlation (r.xt) between an item response and the total score?
 
 plot.fun<-function(resp) { #don't worry too much about the details here in the first pass.
     pv<-colMeans(resp,na.rm=TRUE)
