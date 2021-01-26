@@ -11,7 +11,6 @@ kr20<-function(resp) { #should square this with the definition we saw in class
     o<-rowSums(resp)
     (k/(k-1))*(1-sum(p*q)/var(o))
 }
-
 ##this is a rewrite of the above for the general case, but we don't need here.
 ## cronbach_alpha<-function(resp) {
 ##     k<-ncol(resp)
@@ -19,6 +18,7 @@ kr20<-function(resp) { #should square this with the definition we saw in class
 ##     o<-rowSums(resp)
 ##     (k/(k-1))*(1-sum(v.i)/var(o))
 ## }
+
 par_test<-function(resp) {
     #this function just creates two split-halves of a test and computes:
     #1. the raw correlation of the two subtests.
@@ -34,40 +34,38 @@ par_test<-function(resp) {
     r<-cor(rowSums(t1),rowSums(t2),use='p')
     colSums(t1)->cs1
     colSums(t2)->cs2
-    c(r,2*r/(1+r),abs(mean(rowSums(t1)-rowSums(t2)))) #last value is absolute mean difference in sum scores across the split halves. why might we care about this?
+    c(r,2*r/(1+r))
 }
 
 
 #####################################################################
 #simulated data
-read.table("https://raw.githubusercontent.com/ben-domingue/252L/master/data/rasch.txt")->resp
-
-
 set.seed(512373)
+read.table("https://raw.githubusercontent.com/ben-domingue/252L/master/data/rasch.txt")->resp
 rel<-list()
 for (i in 1:1000) par_test(resp)->rel[[i]] #what just happened here?
 do.call("rbind",rel)->rel
-plot(density(rel[,1]),col="red",xlim=c(0.5,1))
+plot(density(rel[,1]),col="red",xlim=c(0.5,1),xlab="correlation of parallel forms")
 lines(density(rel[,2]),col="black") #what is difference between black and red curves?
 kr20(resp)->alph
-abline(v=alph)
-
-##first, why is alpha not acting as a lower bound?
-plot(rel[,3],rel[,2],pch=19,cex=.8) #q. what theory am i testing here?
-abline(h=alph) 
-cor(rel[,3],rel[,2]) 
-##fitting loess curves, don't worry too much about below chunk
-loess(rel[,2]~rel[,3])->m
-cbind(rel[,3],m$fitted)->tmp
-tmp[order(tmp[,1]),]->tmp
-lines(tmp,col="red",lwd=2)
-
+abline(v=alph) #vertical black line at estimate of kr20/cronbach's alpha
 
 ##what if you considered empirical data? (from towards_irt.R)
 resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
 resp<-resp[rowSums(is.na(resp))==0,]
-    
-##for simulation (e.g., code block starting at line 21 of item_analysis.R), ask yourself the following questions [and feel free to track down answers!]
+rel<-list()
+for (i in 1:100) par_test(resp)->rel[[i]] #what just happened here?
+do.call("rbind",rel)->rel
+plot(density(rel[,1]),col="red",xlim=c(0.5,1))
+lines(density(rel[,2]),col="black") #what is difference between black and red curves?
+kr20(resp)->alph
+abline(v=alph) #vertical black line at estimate of kr20/cronbach's alpha
+
+##q. how does this make you feel about cronbach's alpha?
+
+##########################
+##if you have extra time and want to further explore:
+##for simulated data (e.g., code block starting at line 23 of item_analysis.R), ask yourself the following questions [and feel free to track down answers!]
 ##how do these values change as you change ni and np in sample?
 ##what if you change the generating distribution of th?
 ##what if you change the value of a
