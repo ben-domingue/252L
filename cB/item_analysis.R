@@ -53,7 +53,7 @@ out[[4]]<-item_analysis(resp4)
 ##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 pf<-function(x) {
-    hist(x[,1],xlab="p-values",main='')
+    hist(x[,1],xlab="p-values",main='',xlim=c(0,max(1,max(x[,1]))))
     plot(density(x[,2]),xlim=c(0,1),xlab="item-total correlations",main="")
 }
 lapply(out,pf) #lapply is a dear friend of mine!
@@ -66,3 +66,14 @@ lapply(out,pf) #lapply is a dear friend of mine!
 
 
 
+biserial_cor<-function(x,y) { #https://www.statisticshowto.com/point-biserial-correlation/
+    y1<-mean(y[x==1])
+    y0<-mean(y[x==0])
+    p<-mean(x)
+    q<-1-p
+    s<-sd(y)
+    val<-qnorm(p)
+    yy<-dnorm(val)
+    ##
+    (y1-y0)*(p*q/yy)/s
+}
