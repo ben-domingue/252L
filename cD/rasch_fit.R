@@ -108,4 +108,4 @@ do.call("rbind", out)
 ## Results from this analysis can be compared to Table 1 from Wu & Adams (specifically their column based on 20 items).
 ## They don't match exactly (but they should be fairly close). Any theories as to why our results differ?
 
-## Take a look here and see if you agree with their recommendations:  http://www.rasch.org/rmt/rmt83b.htm
+## Take a look here and see if you agree with recommendations here:  http://www.rasch.org/rmt/rmt83b.htm
