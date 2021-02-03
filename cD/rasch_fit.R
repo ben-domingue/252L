@@ -3,7 +3,7 @@
 ##1. simulate data
 ##2. estimate rasch model for that simulated data
 ##3. compute fit statistics
-##we're going to build some functions to do all of that below and then put things together in a simulation study.
+##we're going to build some functions to do all of that below and then put things together in a simulation study. i'd work at this in layers. first understand the broad architecture (how do we use the different functions to put together the simulation study). second, what is going on in the guts of each function? 
 
 
 # Simulating data --------------------------------------------------------------
@@ -29,7 +29,7 @@ resp <- sim_rasch(20, 100) # PAUSE AND LOOK AT WHAT resp LOOKS LIKE
 ## Let's write a function to estimate the Rasch model with the 'resp' matrix
 est_rasch <- function(resp) {
   library(mirt)
-  mod <- mirt(resp, 1, itemtype = "Rasch")
+  mod <- mirt(resp, 1, itemtype = "Rasch") #first step of rasch estimatino
   co <- coef(mod)
   co <- co[-length(co)]#why do i do this?
   pars <- do.call("rbind", co)
@@ -77,7 +77,7 @@ plot(density(fit))
 
 ## Now let's look at the critical values of this distribution for a fixed number of items (20) and varying numbers of people.
 out <- list()
-for (np in c(100, 200, 400, 600, 800, 1000)) { #this will take a few minutes. i would recommend starting the loop and then looking at it while it runs
+for (np in c(100, 200, 400, 600, 800, 1000)) { #IMPORTANT: this will take a few minutes. i would recommend starting the loop and then looking at it while it runs
   fit.list <- list()
   for (i in 1:25) {
     # why this loop?
@@ -107,5 +107,16 @@ do.call("rbind", out)
 
 ## Results from this analysis can be compared to Table 1 from Wu & Adams (specifically their column based on 20 items).
 ## They don't match exactly (but they should be fairly close). Any theories as to why our results differ?
-
 ## Take a look here and see if you agree with recommendations here:  http://www.rasch.org/rmt/rmt83b.htm
+
+##Let's experiment with our empirical dataset from the first bit of code.
+resp1 <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
+resp<-resp1[rowSums(is.na(resp1))==0,] #getting rid of those with missing data
+rs<-rowSums(resp)
+resp<-resp[rs>0 & rs<ncol(resp),] #getting those with all or no incorrect responses
+est <- est_rasch(resp)
+p <- get_p(est)
+fit <- fit_stat(resp, p)
+sd(fit)
+sqrt(2/nrow(resp))
+#whatcha think?
