@@ -54,3 +54,5 @@ b<-rnorm(50)
 resp<-sim_data(b=b,link=function(x) psn(x,alpha=3)) #now we've really gone overboard ;)
 m<-mirt(resp,1,itemtype="Rasch")
 plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) #hm, what is going on here? can we make sense of why parameter estimation is quite bad when b is large
+
+
