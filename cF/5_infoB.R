@@ -1,5 +1,5 @@
 set.seed(12311)
-read.table("https://raw.githubusercontent.com/ben-domingue/252L_winter2018/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp
+read.table("https://raw.githubusercontent.com/ben-domingue/252L/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp ##might take a while, could also download directly and then read.table locally
 resp[rowSums(is.na(resp))==0,]->resp
 resp[1:5000,]->resp
 #first just the constructed response items
@@ -27,12 +27,18 @@ fun<-function(mod,i,th) {
 cols<-c("black","red","green","blue","blue")
 lty<-c(1,1,1,2,3)
 par(mfrow=c(3,5),mar=c(3.3,3.3,1,1),mgp=c(2,1,0))
+th<-matrix(seq(-4,4,length.out=1000))
 for (i in 1:ncol(resp)) {
-    th<-matrix(seq(-4,4,length.out=1000))
     lapply(mod,fun,i=i,th=th)->out
     max(unlist(out))->M
     plot(NULL,xlim=range(th),ylim=c(0,M),xlab="",ylab="")
     for (j in 1:length(out)) lines(th,out[[j]],col=cols[j],lty=lty[j],lwd=2)
 }
 legend("topright",c("pcm","grm","gpcm","2pl.lo","2pl.hi"),lty=lty,col=cols,lwd=1,bty="n")
+##test info
+lapply(mod,testinfo,Theta=th)->out
+max(unlist(out))->M
+plot(NULL,xlim=range(th),ylim=c(0,M),xlab="",ylab="")
+for (j in 1:length(out)) lines(th,out[[j]],col=cols[j],lty=lty[j],lwd=2)
 
+##note: i'm not asserting that the model which provides maximal info is the one we should use. only comparing the differences in info that we get from application of different models.

@@ -33,22 +33,31 @@ alpha(Science)
 ## graded The graded model consists of sequential 2PL models, and
 ##      here k is the predicted category.
 ##      P(x = k | theta, psi) = P(x >= k | theta, phi) - P(x >= k + 1 | theta, phi)
-## how does this differ from what we saw in class?
 mod <- mirt(Science, 1,itemtype="graded") 
 
 
 mod
-coef(mod) 
-##we will see these coefficients reappear momentarily when we look at trace lines. but, at this point, you should be able to draw the 
+coef(mod,IRTpars=TRUE) 
+##we will see these coefficients reappear momentarily when we look at trace lines. but, at this point, you should be able to draw them! ;)
 
 plot(mod, type = 'trace')
+##hm. let's check
+extr <- extract.item(mod,1)
+Theta <- matrix(seq(-6,6, length.out=2000))
+pr <- probtrace(extr, Theta) #min() of first item
+ii<-which.min(abs(pr[,1]-.5))
+Theta[ii] #you should be able to match this value to something for the $Comfort item
+ii<-which.min(abs(pr[,1]+pr[,2]-.5))
+Theta[ii] #this one should match as well
+ii<-which.min(abs(pr[,1]+pr[,2]+pr[,3]-.5))
+Theta[ii] #and this one
+
 
 plot(mod,type="info")
 plot(mod,type="rxx")
 plot(mod,type="infotrace")
 plot(mod,type="SE")
 plot(mod,type="score")
-
 
 ###########################################################################################################
 #you can now do something comparable with testing data.

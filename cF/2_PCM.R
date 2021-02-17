@@ -1,12 +1,21 @@
 library(mirt)
 
+##note: we're now going to apply pcm to same data. we just applied grm. this is a lawless space! ¯\_(ツ)_/¯
 mod.pcm <- mirt(Science, 1,itemtype=rep("gpcm",ncol(Science))) 
 mod.pcm #q: what do we have here?
 coef(mod.pcm) #q: please stop and try to interpret these!
-q
 
 coef(mod.pcm,IRTpars=TRUE) #q: is this better?
 plot(mod.pcm, type = 'trace')
+
+##let's double check
+extr <- extract.item(mod.pcm,1)
+Theta <- matrix(seq(-6,6, length.out=2000))
+pr <- probtrace(extr, Theta) #min() of first item
+Theta[which(pr[,2]>pr[,1])[1]] #you should be again able to match these values to estimates for the $Comfort item. 
+Theta[which(pr[,3]>pr[,2])[1]] #and this value
+Theta[which(pr[,4]>pr[,3])[1]] #and this value
+
 
 runif(nrow(Science))->test
 ifelse(Science$Comfort==2 & test<.5,1,Science$Comfort)->Science$Comfort #what am i doing here? 
@@ -20,7 +29,7 @@ plot(mod.pcm.fake, type = 'trace')
 
 #you can now do something comparable with testing data.
 set.seed(12311)
-read.table("https://raw.githubusercontent.com/ben-domingue/252L_winter2018/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp
+read.table("https://raw.githubusercontent.com/ben-domingue/252L/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp ##might take a while, could also download directly and then read.table locally
 resp[rowSums(is.na(resp))==0,]->resp
 resp[1:5000,]->resp
 #first just the constructed response items
@@ -37,22 +46,3 @@ plot(mod,type="rxx")
 plot(mod,type="infotrace")
 plot(mod,type="SE")
 plot(mod,type="score")
-
-
-
-                                        #a full mixed format test
-set.seed(12311)
-read.table("https://raw.githubusercontent.com/ben-domingue/252L_winter2018/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp
-resp[rowSums(is.na(resp))==0,]->resp
-resp[1:5000,]->resp
-
-
-
-#first just the constructed response items
-apply(resp,2,function(x) length(unique(x)))->tab
-#
-mod <- mirt(resp, itemtype=ifelse(tab==2,"3PL","gpcmIRT"),1)
-mod <- mirt(resp, itemtype=ifelse(tab==2,"2PL","gpcmIRT"),1)
-
-                                        #now, how would you find reversals
-plot(mod,type="trace")
