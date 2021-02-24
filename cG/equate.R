@@ -121,14 +121,14 @@ s<-paste("F=1-",N,"
 mirt.model(s)->model
 mirt(r1,model,itemtype=rep("3PL",N),method="EM",technical=list(NCYCLES=5000))->m1
 fscores(m1,response.pattern=r1,method="EAP")->z
-data.frame(z)$F1->s1
+data.frame(z)$F->s1
 N<-ncol(r2)
 s<-paste("F=1-",N,"
         PRIOR = (1-",N,", a1, lnorm, 0.2, 0.2),(1-",N,", g, norm, -1.5, .2)",sep="")
 mirt.model(s)->model
 mirt(r2,model,itemtype=rep("3PL",N),method="EM",technical=list(NCYCLES=5000))->m2
 fscores(m2,response.pattern=r2,method="EAP")->z
-data.frame(z)$F1->s2
+data.frame(z)$F->s2
 co<-function(mod) {
     length(coef(mod))->n
     coef(mod)[-n]->tmp
