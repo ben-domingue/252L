@@ -26,7 +26,7 @@ sim_md<-function(N=1000,n=10,
     1:ncol(resp)->colnames(resp)
     list(true=list(a=a,b=c(b1,b2),th=th),resp=resp)
 }
-sim_md()->resp
+sim_md()->resp ##note: this 'resp' matrix does not contain information about where it 'came from'. in particular, there is nothing about it that tells you it came from a multidimensional model! you have to figure that part out.
 
 ##Using this function, examine parameter recovery for the item parameters. my work is in dim-bd-work.R if you would like a guide.
 ##How does this depend on choice of r?

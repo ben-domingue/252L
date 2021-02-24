@@ -1,13 +1,14 @@
 set.seed(12101)
 compare<-function(resp,itemtype="2PL") {
-    ##this will create two plots
-    ##first plot: absolute bias in item parameter estimates as a function of item position
-    ##second plot: density of discrimination coefs separately for unidim items (black) and multidim items (red)
+    ##let's first estimate a **unidimensional** model. this is wrong, of course.
     library(mirt)
     mirt(resp$resp,1,itemtype=itemtype)->mod
     coef(mod)->co
     co[-length(co)]->co
     do.call("rbind",co)->co
+    ##now we create two plots
+    ##first plot, looking at easiness: absolute bias in easiness estimates as a function of item position
+    ##second plot, looking at discrimination: density of discrimination coefs separately for unidim items (black) and multidim items (red)
                                         #
     nrow(co)->n
     plot(abs(co[,2]-resp$true$b),col=c(rep("black",n/2),rep("red",n/2)),pch=19,ylab=c("abs(est easy - true easy)"))
@@ -51,14 +52,14 @@ sim_md(N=2000,n=50,A=2)->resp
 compare(resp,itemtype="2PL")
 
 ## ##For fun let's now estimate the right model
-## sim_md(N=5000)->resp
+sim_md(N=5000)->resp
 
-## mirt(resp$resp,2,"2PL")->mod
-## coef(mod)->co
-## co[-length(co)]->co
-## do.call("rbind",co)->co
-## plot(co[,1],pch=19,ylim=c(-2,2))
-## points(co[,2],pch=19,col="red") #subtle things are afoot here. if you know anything about factor analysis, the reason this isn't quite what you expect is related to the idea of "rotation"
+mirt(resp$resp,2,"2PL")->mod
+coef(mod)->co
+co[-length(co)]->co
+do.call("rbind",co)->co
+plot(co[,1],pch=19,ylim=c(-2,2))
+points(co[,2],pch=19,col="red") #subtle things are afoot here. if you know anything about factor analysis, the reason this isn't quite what you expect is related to the idea of "rotation"
 
 
 
