@@ -9,7 +9,7 @@ rnorm(N,sd=1)->theta
 cbind(1,rnorm(n),0)->pars
 
 
-sim_fun(theta=theta,pars=pars)->resp
+sim_fun(theta=theta,pars=pars)->resp #we're now going to simulate data based on the rasch model
 ##now let's blind ourselves to the true stuff we don't normally get.
 rm("theta")
 rm("pars")
@@ -35,5 +35,5 @@ as.numeric(as.character(L$ss))->L$ss
 boxplot(freq~ss,L,xlab="sum score",ylab="density")
 table(factor(Q,levels=0:n,ordered=TRUE))->tab
 lines(0:n,as.numeric(tab)/length(Q),col="red",lwd=2)
-##so things look quite nice!
+##so things look quite nice! compare to figure here: https://journals.sagepub.com/doi/10.1177/0146621605285517
 

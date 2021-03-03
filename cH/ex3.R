@@ -1,4 +1,4 @@
-#now items don't have common discriminations.
+#now items may/may not have common discriminations.
 
 source("functions.R")
 
