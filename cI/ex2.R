@@ -1,6 +1,6 @@
 #now the dgp will be wrong (guessing occurs)
 
-source("functions.R")
+source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
 N<-2000
 n<-40
@@ -32,7 +32,7 @@ data.frame(do.call("rbind",L))->L
 as.numeric(as.character(L$ss))->L$ss
 boxplot(freq~ss,L,xlab="sum score",ylab="density")
 lines(density(Q),col="red")
-##presumably we could also have detected poor fit via outfit statistics. however, this giives us specific information about the way in which fit is bad that may be valuable.
+##presumably we could also have detected poor fit via outfit statistics. however, this gives us specific information about the way in which fit is bad that may be valuable.
 
 ##but if we use the right model
 est_fun(resp,mod="3PL")->est

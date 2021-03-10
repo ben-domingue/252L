@@ -1,6 +1,6 @@
 ##here i am going to examine the sum score when the estimated dgp is correct.
 ##so, this is a case where my simulations should match my empirical results
-source("functions.R")
+source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
 N<-5000
 n<-60

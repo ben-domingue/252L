@@ -1,5 +1,6 @@
 ##using one of the empirical datasets (look for the emp-... prefix)
 ##try to use one of these ideas to diagnose fit problems. 
+source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
 resp <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
 resp[rowSums(is.na(resp))==0,]->resp

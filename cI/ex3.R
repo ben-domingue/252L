@@ -1,6 +1,6 @@
 #now items may/may not have common discriminations.
 
-source("functions.R")
+source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
 N<-1000
 n<-40
