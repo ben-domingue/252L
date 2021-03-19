@@ -19,7 +19,7 @@ m1.mirt<-mirt(resp,1,'Rasch')
 co<-coef(m1.mirt)[-length(coef(m1.mirt))]
 co<-do.call("rbind",co)
 easy.pars<-cbind(fixef(m1),co[,2])
-plot(easy.pars)
+plot(easy.pars,xlab="lmer parameters",ylab="mirt parameter",pch=19)
 
 ##compare person parameters
 person.pars<-cbind(ranef(m1)$id[,1],fscores(m1.mirt)[,1])
