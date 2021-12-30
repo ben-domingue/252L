@@ -2,8 +2,8 @@
 ##Likelihood exploration
 #################################################
 
-x<-rnorm(100)
 ##Suppose we just observed x, a bunch of random numbers.
+x<-rnorm(100)
 ##We first want to see what the distribution looks like. We can do this:
 hist(x)
 
@@ -50,4 +50,4 @@ ll<-function(pars,x) {
 }
 optim(par=c(-2,2),ll,x=x)$par #these are the mean and variance estimates produced by maximum likelihood.
 
-#Q. How do our estimates vary in accuracy as a function of the sample size (change 100 to something much bigger and much smaller in the top line)? What does this connect to in your understanding of estimation theory (think standard error)?
+#Q. How do our estimates vary in accuracy as a function of the sample size (change 100 to something much bigger and much smaller in the call to "rnorm" at the top)? What does this connect to in your understanding of estimation theory (think standard error)?

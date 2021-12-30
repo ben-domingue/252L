@@ -21,6 +21,8 @@ pr<-kern/(1+kern)
 test<-matrix(runif(1000),100,10)
 x2<-ifelse(pr>test,1,0)
 
-##Q. Now, let's ask the same questino of the new matrix x2. Does it seem like realistic item response data? Specifically, how does it compare to the first matrix x1 in terms of whether it seems like a realistic set of item responses? What characteristics influence your opinion on this point?
+##Q. Now, let's ask the same question of the new matrix x2. Does it seem like realistic item response data? Specifically, how does it compare to the first matrix x1 in terms of whether it seems like a realistic set of item responses? What characteristics influence your opinion on this point?
 cor(x2)
 var(rowSums(x2))
+
+##Q. How would you characterize the key difference between x1 and x2 in terms of what we can observe if we blind ourselves to the data generating process?
