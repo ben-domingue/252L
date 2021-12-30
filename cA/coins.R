@@ -12,8 +12,8 @@ true.p<-.7
 par(mfrow=c(3,2),mar=c(3,3,1,1),mgp=c(2,1,0),oma=rep(1,4)) #tuning graphical parameters, don't worry about this
 ii.seq<-c(1,10,100,1000,5000,10000) #this will be the number of tosses of the coin with weight true.p
 for (ii in ii.seq) {
-    p<-seq(0,1,length.out=100) #this is the grid of values that the pare
-    x<-rbinom(ii,1,true.p) #this generated the data by taking ii draws from the appropriate binomial distribution. in this degenerate case of only a single trial, the binomial collapses into a bernoulli distribution (which is what governs the random behavior of coins
+    p<-seq(0,1,length.out=100) #this is the grid of 'p' (ie possible values of 'true.p') that we'll consider
+    x<-rbinom(ii,1,true.p) #this generated the data by taking ii draws from the appropriate binomial distribution. the binomial distribution tells us about the probability of having k successes from n independent experiments each of which has a probability p of success. in this degenerate case of only a single trial, the binomial collapses into a bernoulli distribution (which is what governs the random behavior of coins).  we're passing three arguments: ii (the number of draws from the binomial distribution), 1 (the number of independent experiments, so n=1 here), and the probability of success. 
     out<-numeric()
     for (i in 1:length(p)) out[i]<-ll(p[i],x) #this computes the likelihood for our "p" grid of values using the data
     ##now let's see where the ll is maximal
@@ -30,6 +30,6 @@ for (ii in ii.seq) {
 ##q1 how does difference between true.p (the vertical dashed red line) and ml.p (the solid vertical black line segment) change as a function of the # of coin flips (ii)
 ##q2-what do you make of the flatness of the likelihood surface? what do you think this corresponds to?
 ##https://en.wikipedia.org/wiki/Fisher_information, "Thus, the Fisher information may be seen as the curvature of the support curve (the graph of the log-likelihood). Near the maximum likelihood estimate, low Fisher information therefore indicates that the maximum appears "blunt", that is, the maximum is shallow and there are many nearby values with a similar log-likelihood. Conversely, high Fisher information indicates that the maximum is sharp.
-##q3-how sensitive is "flatness" to the value of true.p?
+##q3-how sensitive is "flatness" of black curve to the value of true.p? how can you make the curve flatter or less flat (for a constant number of tosses)? what does this imply? 
 
 
