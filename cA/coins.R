@@ -27,7 +27,7 @@ for (ii in ii.seq) {
 }
 
 ##questions that you can explore via adjustments to true.p
-##q1 how does difference between true.p (the vertical dashed red line) and ml.p (the solid vertical black line segment) change as a function of the # of coin flips (ii)
+##q1 how does difference between true.p (the vertical dashed red line) and the estime, ml.p (the solid vertical black line segment), change as a function of the # of coin flips (ii)
 ##q2-what do you make of the flatness of the likelihood surface? what do you think this corresponds to?
 ##https://en.wikipedia.org/wiki/Fisher_information, "Thus, the Fisher information may be seen as the curvature of the support curve (the graph of the log-likelihood). Near the maximum likelihood estimate, low Fisher information therefore indicates that the maximum appears "blunt", that is, the maximum is shallow and there are many nearby values with a similar log-likelihood. Conversely, high Fisher information indicates that the maximum is sharp.
 ##q3-how sensitive is "flatness" of black curve to the value of true.p? how can you make the curve flatter or less flat (for a constant number of tosses)? what does this imply? 
