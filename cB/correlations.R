@@ -21,8 +21,12 @@ get.coors<-function(resp) {
 }
 
 plot.fun<-function(resp) { #don't worry too much about the details here in the first pass.
+    layout(matrix(c(1,2,3,3),2,2,byrow=TRUE))
+    par(mgp=c(2,1,0),mar=c(3,3,1,1),oma=rep(.5,4))
     pv<-colMeans(resp,na.rm=TRUE)
     r.xt<-get.coors(resp)
+    hist(pv,xlim=0:1,xlab="p-values",sub='',main='')
+    hist(r.xt,xlim=0:1,xlab="item-total cor",sub='',main='')
     plot(pv,r.xt,pch=19,cex=2)
     ##everything below here just goes into the red line
     loess(r.xt~pv)->m
@@ -31,6 +35,7 @@ plot.fun<-function(resp) { #don't worry too much about the details here in the f
     NULL
 }
 plot.fun(resp)
-##q. what do you think about the distribution of p-values in this empirical dataset?
+##q. what do you think about the distribution of p-values in this empirical dataset? (top left)
+##q. how about the distribution of correlations?
 ##q. what do you notice about the relationship between item p-value and item-total correlation?
 
