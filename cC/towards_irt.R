@@ -36,7 +36,7 @@ plot(rowMeans(resp),type="l")
 ##pause at this point to check in with ben
 
 #############################################################
-##now we have most able examinees on the bottom and the hardest items on the left.
+##now we have most able examinees on the bottom and the hardest items on the left in 'resp'.
 ##aside: my entire dissertation was spent futzing about with implications that following from such orderings. https://link.springer.com/article/10.1007/s11336-013-9342-4
 ##let's condense this by collapsing rows so that all individuals with a common score are represented in a single row.
 ##a cell will now tell us the proportion of respondents in that row who responded correctly to a given item
