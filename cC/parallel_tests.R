@@ -32,8 +32,6 @@ par_test<-function(resp) {
     t2<-resp[,t2]
     ##now we'll process those halves
     r<-cor(rowSums(t1),rowSums(t2),use='p')
-    colSums(t1)->cs1
-    colSums(t2)->cs2
     c(r,2*r/(1+r))
 }
 
@@ -49,6 +47,7 @@ plot(density(rel[,1]),col="red",xlim=c(0.5,1),xlab="correlation of parallel form
 lines(density(rel[,2]),col="black") #what is difference between black and red curves?
 kr20(resp)->alph
 abline(v=alph) #vertical black line at estimate of kr20/cronbach's alpha
+##q. what about portion of the distribution in black below the horizontal line? what do you make of these? [focus on assumptions that undergird everything]
 
 ##what if you considered empirical data? (from towards_irt.R)
 resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
@@ -66,6 +65,6 @@ abline(v=alph) #vertical black line at estimate of kr20/cronbach's alpha
 ##########################
 ##if you have extra time and want to further explore:
 ##for simulated data (e.g., code block starting at line 23 of item_analysis.R), ask yourself the following questions [and feel free to track down answers!]
-##how do these values change as you change ni and np in sample?
-##what if you change the generating distribution of th?
-##what if you change the value of a
+##q. how do these values change as you change ni and np in sample?
+##q. what if you change the generating distribution of th?
+##q. what if you change the value of "a" in line 31?
