@@ -47,7 +47,7 @@ plot(density(rel[,1]),col="red",xlim=c(0.5,1),xlab="correlation of parallel form
 lines(density(rel[,2]),col="black") #what is difference between black and red curves?
 kr20(resp)->alph
 abline(v=alph) #vertical black line at estimate of kr20/cronbach's alpha
-##q. what about portion of the distribution in black below the horizontal line? what do you make of these? [focus on assumptions that undergird everything]
+##q. what about portion of the distribution in black below the vertical line? what do you make of these? [focus on assumptions that undergird everything]
 
 ##what if you considered empirical data? (from towards_irt.R)
 resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
