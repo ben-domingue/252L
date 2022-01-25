@@ -35,7 +35,7 @@ coef
 ##note that there is something different when we compare "our" version of the Rasch model to the mirt version.
 ##It's very important that you note this difference!
 ##so, be able to make sure you can explain this!
-plot(colMeans(resp1),coef[,2],xlab="p-values",ylab="raw mirt estimates")
+plot(colMeans(resp1,na.rm=TRUE),coef[,2],xlab="p-values",ylab="raw mirt estimates")
 
 ## here is a fun way of looking at comparing the estimated icc to empirical data
 itemfit(m1, empirical.plot = 3)
