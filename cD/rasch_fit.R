@@ -32,7 +32,7 @@ resp <- sim_rasch(20, 100) # PAUSE AND LOOK AT WHAT resp LOOKS LIKE
 ## Let's write a function to estimate the Rasch model with the 'resp' matrix
 est_rasch <- function(resp) {
   library(mirt)
-  mod <- mirt(resp, 1, itemtype = "Rasch") #first step of rasch estimatino
+  mod <- mirt(resp, 1, itemtype = "Rasch") #first step of rasch estimation
   co <- coef(mod)
   co <- co[-length(co)]#why do i do this?
   pars <- do.call("rbind", co)

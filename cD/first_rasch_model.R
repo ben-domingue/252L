@@ -40,4 +40,8 @@ plot(colMeans(resp1,na.rm=TRUE),coef[,2],xlab="p-values",ylab="raw mirt estimate
 ## here is a fun way of looking at comparing the estimated icc to empirical data
 itemfit(m1, empirical.plot = 3)
 
-
+##as a comparison
+resp2<-resp1
+resp2$V55<-rbinom(nrow(resp2),1,.5)
+m2 <- mirt(resp2, 1, itemtype = "Rasch")
+itemfit(m2, empirical.plot =55)
