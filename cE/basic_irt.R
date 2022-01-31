@@ -64,7 +64,7 @@ plot(mod,type="trace") ##see variation in the slopes? is there a lot or a little
 
 ################################################################
 ##now let's get theta values
-theta<-fscores(mod,full.scores.SE=TRUE,method="ML") 
+theta<-fscores(mod,full.scores.SE=TRUE,method="ML")  #these are our first theta estimates. exciting!!
 par(mfrow=c(1,2))
 plot(rowSums(resp),theta[,1],xlab="sum score",ylab="theta") ##not 1-1!
 plot(theta,xlab="theta",ylab="se",ylim=c(0,.8))
