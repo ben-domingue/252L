@@ -46,6 +46,10 @@ do.call("rbind",coefs)->coefs
 
 
 plot(b,coefs[,1]); abline(0,1) #what do you make of this? 
+## plot(b,coefs[,1]/coefs[,2]); abline(0,1) #what do you make of this? warning, it's not quite right! why? 
+plot(b,coefs[,1]/coefs[,2]); abline(0,1) #can you see why this is better from the way we write logistic regression kernels (b0+b1*x) versus 2pl kernels (a(theta-x))?
+
+plot(a,coefs[,2]); abline(0,1)
 
 ##ALWAYS REMEMBER: in practice you don't ever see th, a, or b. we are cheating here.
 
