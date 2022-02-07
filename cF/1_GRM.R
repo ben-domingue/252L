@@ -38,7 +38,8 @@ mod <- mirt(Science, 1,itemtype="graded")
 
 mod
 coef(mod,IRTpars=TRUE) 
-##we will see these coefficients reappear momentarily when we look at trace lines. but, at this point, you should be able to draw them! ;)
+##we will see these coefficients reappear momentarily when we look at trace lines.
+##but, at this point, you should be able to draw them! ;)
 
 plot(mod, type = 'trace')
 ##hm. let's check

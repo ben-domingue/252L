@@ -7,7 +7,8 @@ EM(dat=c(5,9,8,4,7),init=c(.52,.5)) #http://www.nature.com/nbt/journal/v26/n8/fu
 ##b. how sensitive is estimation to the location of true parameters (e.g., the "p" argument below)?
 ##c. to the values of n and N?
 
-##you don't necessarily need to answer all of these. i am just hoping you experiment enough with this to develop some intuition for how estimation depends on the specifics of a given scenario.
+##you don't necessarily need to answer all of these.
+###i am just hoping you experiment enough with this to develop some intuition for how estimation depends on the specifics of a given scenario.
 
 ##in case it helps, here is a function to simulate data
 sim<-function(N.runs=5,N.flips.per.run=10,p=NULL) {
