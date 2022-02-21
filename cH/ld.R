@@ -1,5 +1,6 @@
 ##This is a function that will embed local dependencies in item responses (in particular, it's a kind of 'hot hand' effect)
-sim_ld<-function(N=1000,n=10,
+sim_ld<-function(N=1000,
+                 n=10,
                  per=.1 #this will be a parameter such that your performance on the last item influences your performance on this item
                  ) {
     th<-rnorm(N)
@@ -8,15 +9,15 @@ sim_ld<-function(N=1000,n=10,
     resp<-matrix(NA,N,n)
     delta<-numeric()
     for (i in 1:N) {
-        person.per<-runif(1,-1*per,per)
+        person.par<-runif(1,-1*per,per)
         for (j in 1:n) {
             getp(th[i],b[j])->p
-            if (j>1 && resp[i,j-1]==1 & person.per>0) p+person.per*(1-p)->p #so if you got the last item right, then your chance on this one is improved by person.per times 1-p
-            if (j>1 && resp[i,j-1]==0 & person.per<0) p+person.per*p->p #so if you got the last item wrong, then your pr on this one is decrease by person.per*p (person.per is negative here)
+            if (j>1 && resp[i,j-1]==1 & person.par>0) p+person.par*(1-p)->p #so if you got the last item right, then your chance on this one is improved by person.par times 1-p
+            if (j>1 && resp[i,j-1]==0 & person.par<0) p+person.par*p->p #so if you got the last item wrong, then your pr on this one is decrease by person.par*p (person.par is negative here)
             rbinom(1,1,p)->y
             y->resp[i,j]
         }
-        person.per->delta[i]
+        person.par->delta[i]
     }
     1:ncol(resp)->colnames(resp)
     list(true=list(b=b,th=th,delta=delta),resp=resp)

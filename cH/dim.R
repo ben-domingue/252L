@@ -1,5 +1,6 @@
 ##This is a function that will generate item response data based on a combination of unidimensional and  multidimensional models.
-sim_md<-function(N=1000,n=10,
+sim_md<-function(N=1000, #number of people
+                 n=10, #number of items (we will simulate 2n items)
                  r=.5, #correlation of MD abilities
                  A=1 #the max loading on the second dimension, all loadings on first dimension are 1
                  ) {
@@ -26,14 +27,15 @@ sim_md<-function(N=1000,n=10,
     1:ncol(resp)->colnames(resp)
     list(true=list(a=a,b=c(b1,b2),th=th),resp=resp)
 }
-sim_md()->resp ##note: this 'resp' matrix does not contain information about where it 'came from'. in particular, there is nothing about it that tells you it came from a multidimensional model! you have to figure that part out.
+sim_md()->resp
+##note: this 'resp' matrix does not contain information about where it 'came from'.
+##in particular, there is nothing about it that tells you it came from a multidimensional model! you have to figure that part out.
 
 ##Using this function, examine parameter recovery for the item parameters. my work is in dim-bd-work.R if you would like a guide.
 ##How does this depend on choice of r?
-##How does this depend on choice of item response model? i would suggest focusing on the rasch and 2pl [confirm that i am not simulating any guessing]
+##How does this depend on choice of item response model?
+##i would suggest focusing on the rasch and 2pl [confirm that i am not simulating any guessing]
 
 ##On fit statistics:
 ##They may or may not be pick up the ways in which things are going wrong here.
 ##If you have some insight into the ways the true DGP differs from the model-assumed DGP, you might have insight into fit statistics designed to detect such deviations.
-
-##Thought: If you were so inclined, you could rework this into generating testlet data and study the effects of testlet structure on parameter recovery. 
