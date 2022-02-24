@@ -17,6 +17,9 @@ compare<-function(resp,itemtype="Rasch") {
 }
 compare(resp)
 
+sim_ld(per=0.025,n=25)->resp
+compare(resp)
+
 
 sim_ld(per=.3,n=25)->resp
 compare(resp)
