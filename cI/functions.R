@@ -1,4 +1,6 @@
-est_fun<-function(resp,mod,person=FALSE) { #this will estimate the relevant Rasch model
+est_fun<-function(resp,mod,person=FALSE) {
+    ##this will estimate the relevant Rasch model
+    ##just a wrapper for call to mirt
     library(mirt)
     if (mod=="Rasch") {
         mirt(resp,1,itemtype=rep("Rasch",ncol(resp)),method="EM",technical=list(NCYCLES=5000))->mirt.mod
@@ -27,8 +29,9 @@ est_fun<-function(resp,mod,person=FALSE) { #this will estimate the relevant Rasc
     list(coef=co[,1:3],hyp=hyp[[1]],theta=theta)
 }
 
-#simulate responses
-sim_fun<-function(theta,pars) { #this will simulate item response data based on the relevant user inputs (abilities and item parameters)
+sim_fun<-function(theta,pars) {
+    ##this will simulate item response data based on the relevant user inputs (abilities and item parameters)
+    ##note that parts is a matrix of item parameters (so, even for the 1pl, we use the 3pl formulation)
     length(theta)->n.people
     nrow(pars)->n.items
     #

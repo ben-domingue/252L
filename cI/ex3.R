@@ -1,16 +1,17 @@
-#now items may/may not have common discriminations.
+##now items may/may not have common discriminations.
+##discriminations lead to different patternings in resulting data, so we'll look at something different
 
 source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
-N<-1000
+N<-10000
 n<-40
 ##generate theta and pars
 rnorm(N)->theta
+##first with rasch model
 cbind(1,rnorm(n),0)->pars
 sim_fun(theta=theta,pars=pars)->resp.rasch
-                                        #for 2pl simulation
-#cbind(runif(n,min=.5,max=1.5),rnorm(n),0)->pars
-cbind(exp(rnorm(n,sd=.3)),rnorm(n),0)->pars
+#then with 2pl
+cbind(exp(rnorm(n,sd=.5)),rnorm(n),0)->pars
 sim_fun(theta=theta,pars=pars)->resp.2pl
 
 
@@ -44,15 +45,18 @@ f<-function(resp) {
         matrix(1:ncol(resp),nrow(mat),ncol(mat),byrow=TRUE)->tmp
         stack(data.frame(tmp))->yv
         data.frame(cor=xv[,1],item=yv[,1])->tmp
-                                        #these were item-by-item plots that had some value but were more difficult to follow.
+        #these were item-by-item plots that had some value but were more difficult to follow.
         #boxplot(cor~item,tmp,ylim=c(.2,.6))
         #lines(QQ,col="red")
-        hist(tmp[,1],xlim=c(0,1),breaks=50,freq=FALSE,xlab="correlation",main=ifelse(ii==1,"Rasch","2PL"))
+        hist(tmp[,1],xlim=c(0,1),breaks=50,freq=FALSE,xlab="correlation",main=ifelse(ii==1,"Analysis=Rasch","Analysis=2PL"))
         lines(density(QQ),col="red",lwd=4)
     }
 }
 ##we're going to look at how observed correlations between item-total look compared to simulated correlations
 par(mfrow=c(2,2),mgp=c(2,1,0))
 f(resp.rasch) #here we have a match between dgp and assumed model on left
+legend("topright",bty='n',"Generative=Rasch")
 f(resp.2pl) #here the match is on right.
+legend("topright",bty='n',"2PL")
 
+##note that the 2PL can capture the rasch features!

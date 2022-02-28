@@ -48,7 +48,9 @@ data.frame(do.call("rbind",L))->L
 as.numeric(as.character(L$ss))->L$ss
 boxplot(freq~ss,L,xlab="sum score",ylab="density")
 lines(density(Q),col="red")
-##agreement is better, but you can still see it lacking a little. in particular, our empirical distribution is more low-ability than the simulated results. perhaps due to issues related to estimating guessing parameter?
+##agreement is better, but you can still see it lacking a little. in particular, our empirical distribution is more low-ability than the simulated results.
+##perhaps due to issues related to estimating guessing parameter?
+
 
 
 

@@ -23,7 +23,7 @@ as.numeric(as.character(L$ss))->L$ss
 boxplot(freq~ss,L,xlab="sum score",ylab="density")
 table(factor(Q,levels=0:n,ordered=TRUE))->tab
 lines(0:n,as.numeric(tab)/length(Q),col="red",lwd=2)
-##so things look quite nice!
+##so things look pretty decent!
 
 
 Qfun<-function(resp) {
@@ -58,3 +58,5 @@ f<-function(resp) {
 }
 par(mfrow=c(2,1),mgp=c(2,1,0))
 f(resp) 
+
+##what kinds of conclusions would you make about fitting models to this data?

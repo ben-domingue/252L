@@ -1,5 +1,5 @@
 ##here i am going to examine the sum score when the estimated dgp is correct.
-##so, this is a case where my simulations should match my empirical results
+##this is a case where my simulations should match my empirical results
 source("https://raw.githubusercontent.com/ben-domingue/252L/master/cI/functions.R") ##you'll need to source this 
 
 N<-5000
@@ -16,7 +16,9 @@ rm("pars")
 ##so we're only going to be able to examine byproducts of the empirical data (i.e., the 'resp' matrix)
 ##super important that you catch what has happened here!!!
 
-Qfun<-function(resp) rowSums(resp) #this is going to be the generalized version of a fit statistic
+#this is going to be the generalized version of a fit statistic.
+Qfun<-function(resp) rowSums(resp) 
+##it's very simple in this case!
 Qfun(resp)->Q
 
 est_fun(resp,mod="Rasch")->est
