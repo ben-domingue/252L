@@ -1,7 +1,5 @@
 ##GOAL: what do CTT item fit statistics look like in item responses datasets with qualitatively different features?
 
-out<-list() #lists are really useful!! this just initializes this one so that we can use it later. read more @ http://www.r-tutor.com/r-introduction/list
-
 ##CTT item analysis
 ##this function will compute CTT item statistics for a generic item response matrix. it leverages what we had from correlations.R and adds calculation of p-values to that.
 item_analysis<-function(resp) { #'resp' is just a generic item response matrix, rows are people, columns are items
@@ -14,17 +12,22 @@ item_analysis<-function(resp) { #'resp' is just a generic item response matrix, 
     cbind(pv,r.xt) #returning a matrix consisting of the p-values and the item/total correlations
 }
 
-##let's start with an empirical dataset
-resp1<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
-out[[1]]<-item_analysis(resp1) #i'm passing the resp1 object to the item_analysis function. remind yourself what the item_analysis function will return and check your intuition against the next line
-out[[1]] #q. why the double brackets? [hint: it has to do with the fact that "out" is a list]
-##q. what do we have here? what do you think?
 
+##we're going to work with lists. lists are really useful!! this just initializes this one so that we can use it later. read more @ http://www.r-tutor.com/r-introduction/list
+respL<-list() 
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
+dataset_names <- c("4thgrade_math_sirt", "chess_lnirt", "dd_rotation")
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse")
+for (nm in dataset_names) respL[[nm]] <- dataset$table(nm)$to_data_frame()
+respL<-lapply(respL,irw::long2resp)
+for (i in 1:length(respL)) respL[[i]]$id<-NULL
+
+##let's now add a simulated dataset
 ##code to simulate item response data. just run this block for a moment, don't feel the need to look at it in detail
 #############################################################
 ##feel free to ignore between the above line and the similar below line
-ni<-ncol(resp1)
-np<-nrow(resp1)
+ni<-25
+np<-1000
 set.seed(12311) #this is to ensure that we all draw the same random numbers downstream
 th<-rnorm(np)
 th.mat<-matrix(th,np,ni,byrow=FALSE) #these are the true abilities. we don't observe them, which will be a real problem for us downstream. but we'll not worry about that today. 
@@ -35,30 +38,24 @@ inv_logit<-function(x) exp(x)/(1+exp(x))
 pr<-inv_logit(a*th.mat+b.mat) ##the probability of a correct response
 ##watch closely now
 test<-matrix(runif(ni*np),np,ni) #what do we have here?
-resp2<-ifelse(pr>test,1,0) #what bit of magic was this?
+respL$sim<-ifelse(pr>test,1,0) #what bit of magic was this?
 #############################################################
-out[[2]]<-item_analysis(resp2)
 
-##now a new empirical dataset
-resp3<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)
-head(resp3) ##q. what do you think about the wisdom of applying item_analysis to resp3? does resp3 have any distinguishing features vis-a-vis resp1 or resp2?
-out[[3]]<-item_analysis(resp3) 
+out<-lapply(respL,item_analysis)
 
-##q. what if you cut the non-dichotomous items out of this data?
-apply(resp3,2,function(x) length(table(x)))->ncat
-ncat #what is this?
-resp3[,ncat==2]->resp4
-out[[4]]<-item_analysis(resp4)
+
 
 ##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))
-pf<-function(x) {
+pf<-function(nm,out) {
+    x<-out[[nm]]
     hist(x[,1],xlab="p-values",main='',xlim=c(0,max(1,max(x[,1]))))
+    legend("topleft",bty='n',legend=nm)
     plot(density(x[,2]),xlim=c(0,1),xlab="item-total correlations",main="")
 }
-lapply(out,pf) #lapply is a dear friend of mine!
+lapply(names(out),pf,out) #lapply is a dear friend of mine!
 ##q. what do you note about the ctt statistics for the different datasets
-##q. how does the simulated data compare to our first empirical dataset?
+##q. how could you change the distributions for the simulated data?
 
 ##time permitting:
 ##q. can you rewrite item_analysis() so that it computes the correlations between an item after removing that item from the sum score?

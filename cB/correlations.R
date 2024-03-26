@@ -1,7 +1,13 @@
 ##GOAL: Compute item-total correlations for an empirical dataset and observe the relevant properties
 
-##let's start with an empirical dataset
-resp<-read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt",header=FALSE)
+##let's work with an empirical dataset
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
+df <- dataset$table("kim2023")$to_data_frame()
+
+##reformatting to typical response matrix format
+library(irw)
+resp<-irw::long2resp(df)
+resp$id<-NULL
 resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs (i am omitting any respondents who skipped an item)
 
 ##we are going to define a function below
