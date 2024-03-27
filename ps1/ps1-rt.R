@@ -5,10 +5,8 @@ library(irw)
 resp<-irw::long2resp(df)
 resp$id<-NULL
 
-##first look at whether resp is relatively complete [if there was a lotof missingness, we'd have potential selection bias]
+##Now we have resp in a nice format. Let's consider the following descriptive approach to this problem.
+##1. Let's first compute item-level mean responses. Given that (a) all items are dichotomous and (b) all respondents take virtually all items, we can use this as a rough proxy for item difficulty.
+##2. Let's compute the average time for an item.
+##3. If we look at the average item response as a function of average item response time, what do we see?
 
-##second let's compute descriptives
-pv<-colMeans(resp,na.rm=TRUE) #simple "p-values", which in psychometrics tends to just mean the mean number of points for an item
-M<-by(df$rt,df$item,mean,na.rm=TRUE)
-z<-merge(data.frame(item=names(pv),pv=pv),data.frame(item=names(M),rt=as.numeric(M)))
-plot(z$rt,z$pv)
