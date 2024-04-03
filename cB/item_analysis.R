@@ -17,7 +17,9 @@ item_analysis<-function(resp) { #'resp' is just a generic item response matrix, 
 respL<-list() 
 dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
 dataset_names <- c("4thgrade_math_sirt", "chess_lnirt", "dd_rotation")
-dataset <- redivis::user("datapages")$dataset("item_response_warehouse")
+##https://redivis.com/datasets/as2e-cv7jb41fd/tables/769d-bmjr8xzbq
+##https://redivis.com/datasets/as2e-cv7jb41fd/tables/35se-d5dmd2xn9
+##https://redivis.com/datasets/as2e-cv7jb41fd/tables/jbqa-8k5dtkw7j
 for (nm in dataset_names) respL[[nm]] <- dataset$table(nm)$to_data_frame()
 respL<-lapply(respL,irw::long2resp)
 for (i in 1:length(respL)) respL[[i]]$id<-NULL
@@ -38,12 +40,10 @@ inv_logit<-function(x) exp(x)/(1+exp(x))
 pr<-inv_logit(a*th.mat+b.mat) ##the probability of a correct response
 ##watch closely now
 test<-matrix(runif(ni*np),np,ni) #what do we have here?
-respL$sim<-ifelse(pr>test,1,0) #what bit of magic was this?
+respL$sim<-ifelse(pr>test,1,0) #what bit of magic was this? it's a nice way of using the uniform distribution to generate bernoulli random variables
 #############################################################
 
 out<-lapply(respL,item_analysis)
-
-
 
 ##let's plot the ctt values to see what we can see
 par(mfrow=c(4,2),mgp=c(2,1,0),mar=c(3,3,1,1))

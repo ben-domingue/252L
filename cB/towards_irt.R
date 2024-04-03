@@ -4,11 +4,13 @@
 
 #########################################################
 ##we are first going to read in an empirical dichotomously coded item response dataset
-dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0') ##https://redivis.com/datasets/as2e-cv7jb41fd/tables/35se-d5dmd2xn9
 df <- dataset$table("chess_lnirt")$to_data_frame()
 resp<-irw::long2resp(df)
 resp$id<-NULL
 
+z<-rowSums(is.na(resp))
+resp<-resp[z==0,] #let's just use complete cases
 
 #########################################################
 ##what we want to do is look at the proportion of correct responses for different observed scores / sum scores
@@ -20,13 +22,12 @@ resp$id<-NULL
 ##we'll do the person-side sorting first
 ##we're going to just go through each observed sum score and collect the people
 tmp<-list()
-rowSums(resp,na.rm=TRUE)->rs
-rs<-sort(unique(rs))
-rs[rs>0] #to make our lives easier
-for (i in rs) {
-    resp[rs==i,]->tmp[[as.character(i)]]
+rs<-rowSums(resp,na.rm=TRUE)
+rsvals<-sort(unique(rs))
+for (i in sort(rs)) {
+    tmp[[as.character(i)]]<-resp[rs==i,]
 } #so what is structure of tmp?
-do.call("rbind",tmp)->resp #this is a kind of tough command. see if you can make sense of it. i find working in this way with lists is super intuitive once you see the logic (let's talk if you don't!).
+resp<-do.call("rbind",tmp) #this is a kind of tough command. see if you can make sense of it. i find working in this way with lists is super intuitive once you see the logic (let's talk if you don't!).
 
 ##we'll do the items a little more succinctly. we could have done something like this for the people.
 colSums(resp,na.rm=TRUE)->cs
@@ -68,6 +69,13 @@ plot(rs,prop[,i],xlim=range(rs),ylim=0:1,xlab="sum score",ylab="% correct",type=
 par(mfrow=c(10,5),mar=c(0,0,0,0))
 for (i in 1:ncol(resp)) {
     plot(rs,prop[,i],xlim=range(rs),ylim=0:1,xlab="",ylab="",type="l",xaxt="n",yaxt="n")
+}
+
+##Now all items [smoothed]
+plot(NULL,xlim=range(rs),ylim=0:1,xlab="",ylab="",type="l",xaxt="n",yaxt="n")
+for (i in 1:ncol(resp)) {
+    z<-loess(prop[,i]~rs)
+    lines(z$x,fitted(z))
 }
 
 ##questions

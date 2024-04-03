@@ -1,7 +1,7 @@
 ##GOAL: Compute item-total correlations for an empirical dataset and observe the relevant properties
 
 ##let's work with an empirical dataset
-dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0') #https://redivis.com/datasets/as2e-cv7jb41fd/tables/h4s7-21jrvyww2
 df <- dataset$table("kim2023")$to_data_frame()
 
 ##reformatting to typical response matrix format
@@ -11,7 +11,6 @@ resp$id<-NULL
 resp<-resp[rowSums(is.na(resp))==0,] #taking just those rows with no NAs (i am omitting any respondents who skipped an item)
 
 ##we are going to define a function below
-##if functions aren't intuitive for you, let's talk! i'd be happy to give more context about what happens below.
 ##this function will take a response matrix in, compute ths sum scores (using rowSums), and then loop over the columns to compute correlations between item responses and sum scores. it'll then return the vector of correlations (r.xt)
 get.coors<-function(resp) {
     r.xt<-numeric() #initializing a numeric vector
@@ -19,7 +18,7 @@ get.coors<-function(resp) {
     for (i in 1:ncol(resp)) {
         r.xt[i]<-cor(ss,resp[,i]) #for any i, what is this?
     }
-    ## for (i in 1:ncol(resp)) {
+    ## for (i in 1:ncol(resp)) { this version would do a jack-knifed sum score
     ##     ss<-rowSums(resp[,-i]) #these are the sum scores/observed scores of CTT
     ##     r.xt[i]<-cor(ss,resp[,i]) #for any i, what is this?
     ## }
@@ -41,7 +40,10 @@ plot.fun<-function(resp) { #don't worry too much about the details here in the f
     NULL
 }
 plot.fun(resp)
+
 ##q. what do you think about the distribution of p-values in this empirical dataset? (top left)
+##contrast with a different empirical dataset if you like:
+df <- dataset$table("roar_lexical")$to_data_frame() #https://redivis.com/datasets/as2e-cv7jb41fd/tables/j12j-eaahvhnqj
 ##q. how about the distribution of correlations?
 ##q. what do you notice about the relationship between item p-value and item-total correlation?
 
