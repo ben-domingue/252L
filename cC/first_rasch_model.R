@@ -3,7 +3,10 @@
 ## the main goal is to get oriented with the key output 
 ## that we get from applications of these models to item response data
 
-resp1 <- read.table("https://github.com/ben-domingue/252L/raw/master/data/emp-rasch.txt", header=FALSE)
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0') #https://redivis.com/datasets/as2e-cv7jb41fd/tables/h4s7-21jrvyww2
+df <- dataset$table("kim2023")$to_data_frame()
+resp1<-irw::long2resp(df)
+resp1$id<-NULL
 
 ## fit the rasch model
 library(mirt) # might have to run install.packages("mirt")
@@ -42,6 +45,6 @@ itemfit(m1, empirical.plot = 3)
 
 ##as a comparison
 resp2<-resp1
-resp2$V55<-rbinom(nrow(resp2),1,.5)
+resp2$fake<-rbinom(nrow(resp2),1,.5)
 m2 <- mirt(resp2, 1, itemtype = "Rasch")
-itemfit(m2, empirical.plot =55)
+itemfit(m2, empirical.plot =21)
