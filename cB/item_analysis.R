@@ -24,6 +24,15 @@ for (nm in dataset_names) respL[[nm]] <- dataset$table(nm)$to_data_frame()
 respL<-lapply(respL,irw::long2resp)
 for (i in 1:length(respL)) respL[[i]]$id<-NULL
 
+##no redivis
+respL<-list() 
+dataset_names <- c("4thgrade_math_sirt", "chess_lnirt", "dd_rotation")
+for (nm in dataset_names) respL[[nm]] <- read.csv(paste0(nm,'.csv'))
+respL<-lapply(respL,irw::long2resp)
+for (i in 1:length(respL)) respL[[i]]$id<-NULL
+
+
+
 ##let's now add a simulated dataset
 ##code to simulate item response data. just run this block for a moment, don't feel the need to look at it in detail
 #############################################################
