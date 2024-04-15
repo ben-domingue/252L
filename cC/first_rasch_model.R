@@ -48,3 +48,4 @@ resp2<-resp1
 resp2$fake<-rbinom(nrow(resp2),1,.5)
 m2 <- mirt(resp2, 1, itemtype = "Rasch")
 itemfit(m2, empirical.plot =21)
+

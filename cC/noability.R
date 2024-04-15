@@ -2,9 +2,12 @@
 dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0') #https://redivis.com/datasets/as2e-cv7jb41fd/tables/h4s7-21jrvyww2
 df1 <- dataset$table("kim2023")$to_data_frame()
 df2 <- dataset$table("roar_lexical")$to_data_frame()
+
+##what feature of these datasets makes a comparison of the predictive task challenging?
+
+
 m1<-by(df1$resp,df1$item,mean,na.RM=TRUE)
 m2<-by(df2$resp,df2$item,mean,na.RM=TRUE)
-
 plot(NULL,xlim=0:1,ylim=c(0,5))
 lines(density(m1))
 lines(density(m2),col='red')

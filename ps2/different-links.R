@@ -10,7 +10,8 @@ sim_data<-function( #this will simulate item response data using whatever link y
     a<-1
     b.mat<-matrix(b,np,ni,byrow=TRUE) #these are the item difficulties
     ##now the probability of a correct response is:
-    pr<-link(a*th.mat+b.mat) ##look very carefully here at how b.mat is being included. is this what you expect? if not, take a look at ?mirt (specifically the form used for the Rash itemtype).
+    k<-a*th.mat+b.mat ##look very carefully here at how b.mat is being included. is this what you expect? if not, take a look at ?mirt (specifically the form used for the Rash itemtype).
+    pr<-apply(k,2,link)
     test<-matrix(runif(ni*np),np,ni)
     resp<-ifelse(pr>test,1,0)
     colnames(resp)<-paste("i",1:ncol(resp))
@@ -53,6 +54,6 @@ plot(x,psn(x,alpha=3),type="l") #corresponding icc
 b<-rnorm(50)
 resp<-sim_data(b=b,link=function(x) psn(x,alpha=3)) #now we've really gone overboard ;)
 m<-mirt(resp,1,itemtype="Rasch")
-plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) #hm, what is going on here? can we make sense of why parameter estimation is quite bad when b is large
+plot(b,get_coef(m)[,2],xlab="true diff",ylab="est diff"); abline(0,1) #looking rough!
 
 
