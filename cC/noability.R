@@ -13,8 +13,10 @@ lines(density(m1))
 lines(density(m2),col='red')
 
 
+
 library(mirt)
 library(irw) 
+set.seed(8675309)
 
 for (df in list(df1,df2)) {
     items<-unique(df$item)
@@ -26,7 +28,6 @@ for (df in list(df1,df2)) {
     id<-resp$id
     resp$id<-NULL
     ##cross-validation for models estimated in mirt
-    set.seed(8675309)
     ntimes<-4
     df$gr<-sample(1:ntimes,nrow(df),replace=TRUE)
     x.hold<-df
