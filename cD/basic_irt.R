@@ -45,8 +45,7 @@ do.call("rbind",coefs)->coefs
 ##what do we have here?
 
 
-plot(b,coefs[,1]); abline(0,1) #what do you make of this? 
-## plot(b,coefs[,1]/coefs[,2]); abline(0,1) #what do you make of this? warning, it's not quite right! why? 
+plot(b,coefs[,1]); abline(0,1) #what do you make of this? WARNING, it's not quite right! why? 
 plot(b,coefs[,1]/coefs[,2]); abline(0,1) #can you see why this is better from the way we write logistic regression kernels (b0+b1*x) versus 2pl kernels (a(theta-x))?
 
 plot(a,coefs[,2]); abline(0,1)
@@ -61,8 +60,9 @@ co<-coef(mod)
 co<-do.call("rbind",co[-length(co)])
 
 par(mfrow=c(1,2),mgp=c(2,1,0))
-plot(coefs[,2],co[,1],xlab="glm discrimination",ylab="mirt discrimination")
-plot(coefs[,1],co[,2],xlab="glm difficulty",ylab="mirt difficulty")
+plot(coefs[,2],co[,1],xlab="glm discrimination",ylab="mirt discrimination"); abline(0,1)
+plot(coefs[,1],co[,2],xlab="glm difficulty",ylab="mirt difficulty"); abline(0,1)
+##the performance of mirt is impressive here given that it gets those estimates *without* knowing the th values (which we used to cheat above)
 
 plot(mod,type="trace") ##see variation in the slopes? is there a lot or a little? how could we change this in the code we used to simulate data?
 

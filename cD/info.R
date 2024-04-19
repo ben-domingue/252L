@@ -120,7 +120,7 @@ pf.i(theta,i.l,M)
 
 
 #5
-                                        #1 item
+#1 item
 resp.l<-list(1,0)
 i.l<-y.l<-list()
 beta<-0
@@ -155,7 +155,7 @@ for (i in 1:length(resp.l)) {
 pf(theta,resp.l,y.l,beta=beta)->M
 pf.i(theta,i.l,M)
 
-                                        #8
+#8
 #3 item
 i.l<-y.l<-list()
 build.all(resp.l)->resp.l
@@ -196,8 +196,6 @@ for (i in 1:length(resp.l)) {
 }
 pf(theta,resp.l,y.l,beta=beta)->M
 pf.i(theta,i.l,M)
-
-
 
 #12
 #3 item, not rasch
