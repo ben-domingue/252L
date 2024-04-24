@@ -26,3 +26,4 @@ hist(th)
 hist(th.est)
 plot(th,th.est); abline(0,1) #uhoh!
 
+
