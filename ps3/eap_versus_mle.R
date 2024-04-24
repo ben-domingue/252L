@@ -8,11 +8,6 @@ f1<-function(th,resp,a,b,c) { #used in straight MLE
     p<-get_pr(th,a,b,c)
     -sum(resp*log(p)+(1-resp)*log(1-p))
 }
-f2<-function(th,resp,a,b,c) { #use in EAP
-    p<-get_pr(th,a,b,c)
-    z<-(resp*log(p)+(1-resp)*log(1-p))*dnorm(th) #note last term
-    -sum(z)
-}
 rmse<-function(x,y) sqrt(mean((x-y)^2))
 
 ni<-10
