@@ -1,4 +1,4 @@
-##Let's say we have 3pl items with known abilities
+##Let's say we have 3pl items with known item params
 
 get_pr<-function(th,a,b,c) {
     x<-a*(th-b)

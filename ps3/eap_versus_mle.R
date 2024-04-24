@@ -1,5 +1,3 @@
-##Let's say we have 3pl items with known abilities
-
 get_pr<-function(th,a,b,c) {
     x<-a*(th-b)
     c+(1-c)/(1+exp(-x))
