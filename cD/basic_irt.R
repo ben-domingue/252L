@@ -16,7 +16,6 @@ th<-rnorm(np)
 th.mat<-matrix(th,np,ni,byrow=FALSE) #these are the true abilities. we don't observe them, which will be a real problem for us downstream. but we'll not worry about that today. 
 ##now the item level part.
 ##this is going to look like logistic regression, meaning we will have a slope and an intercept
-a<-rep(1,ni)
 a<-exp(rnorm(ni,sd=.3))
 b<-rnorm(ni)
 a.mat<-matrix(rep(a,np),np,ni,byrow=TRUE)
