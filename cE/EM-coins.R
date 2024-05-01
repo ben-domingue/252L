@@ -1,7 +1,7 @@
 EM<-function(dat,init=c(.5,.5),N=10) {
     Estep<-function(n,N,p1,p2) {
-        p1^n*(1-p1)^(N-n)->z1
-        p2^n*(1-p2)^(N-n)->z2
+        p1^n*(1-p1)^(N-n)->z1 
+       p2^n*(1-p2)^(N-n)->z2
         z1/(z1+z2)->pr1
         z2/(z1+z2)->pr2
         c(pr1*n,pr1*(N-n),pr2*n,pr2*(N-n))
