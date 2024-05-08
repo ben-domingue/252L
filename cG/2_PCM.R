@@ -24,25 +24,3 @@ mod.pcm.fake <- mirt(Science, 1,itemtype=rep("Rasch",ncol(Science)))
 coef(mod.pcm,IRTpars=TRUE) 
 coef(mod.pcm.fake,IRTpars=TRUE) #q: can you make sense of this?
 plot(mod.pcm.fake, type = 'trace')
-
-
-
-#you can now do something comparable with testing data.
-set.seed(12311)
-read.table("https://raw.githubusercontent.com/ben-domingue/252L/master/data/emp-reading-3pl-gpcm.txt",header=TRUE)->resp ##might take a while, could also download directly and then read.table locally
-resp[rowSums(is.na(resp))==0,]->resp
-resp[1:5000,]->resp
-#first just the constructed response items
-grep("^cr",names(resp))->index
-resp[,index]->resp.cr
-apply(resp,2,table)
-#
-mod <- mirt(resp.cr, itemtype="Rasch",1)
-
-plot(mod,type="trace")
-
-plot(mod,type="info")
-plot(mod,type="rxx")
-plot(mod,type="infotrace")
-plot(mod,type="SE")
-plot(mod,type="score")
