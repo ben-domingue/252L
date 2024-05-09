@@ -1,0 +1,31 @@
+dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
+nm <- c("ffm_CSN")
+df <- dataset$table(nm)$to_data_frame()
+##cutting it down
+ids<-sample(unique(df$id),10000)
+df<-df[df$id %in% ids,]
+
+resp<-irw::long2resp(df)
+resp$id<-NULL
+rs<-rowSums(is.na(resp))
+resp<-resp[rs==0,] #only complete cases
+
+library(mirt)
+m<-mirt(resp,1,'rsm') #note that we are using a polytomous model we haven't yet talked much about.
+plot(m, type = 'trace')
+coef(m,IRTpars=TRUE)
+##AA. What do you notice about this model? 
+
+##BB. Please describe this model (see "gpcmIRT and rsm" part of the 'IRT models' part of the help page here: https://www.rdocumentation.org/packages/mirt/versions/1.41/topics/mirt).
+
+##Let's now fit another model
+m0<-mirt(resp,1,'Rasch') #note that we are using a polytomous model we haven't yet talked much about.
+
+##Note that the AIC and BIC are lower for m0 compared to m. This would conventionally be indicative of better 'fit' for m0 in this case. Let's see what happens when we really reduce the sample size. 
+index<-sample(1:nrow(resp),100)
+resp.small<-resp[index,]
+m.small<-mirt(resp.small,1,'rsm')
+m0.small<-mirt(resp.small,1,'Rasch') #note that we are using a polytomous model we haven't yet talked much about.
+m.small
+m0.small
+##CC. How would you think about the difference between the RSM & the PCM in general? 

@@ -1,6 +1,5 @@
 dataset <- redivis::user("datapages")$dataset("item_response_warehouse",version='v5.0')
 dataset_names <- c("roar_lexical")
-dataset <- redivis::user("datapages")$dataset("item_response_warehouse")
 nm<-dataset_names
 df <- dataset$table(nm)$to_data_frame()
 
