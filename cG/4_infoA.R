@@ -102,8 +102,7 @@ est.plot<-function(resp) {
     lty<-c(1,1,1,2,3)
     th<-matrix(seq(-4,4,length.out=1000))
     lapply(mod,testinfo,Theta=th)->out
-    max(unlist(out))->M
-    plot(NULL,xlim=range(th),ylim=c(0,M),xlab="",ylab="")
+    plot(NULL,xlim=range(th),ylim=c(0,10),xlab="",ylab="")
     for (j in 1:length(out)) {
         lines(th,out[[j]],col=cols[j],lty=lty[j])
         co[[j]][[1]]->mat
@@ -132,60 +131,3 @@ mtext(side=1,line=2,"grm, a=1")
 sim.grm(N=5000,n=5,k=5,a=sort(2*runif(10,min=.75,max=1.3)))->resp
 est.plot(resp)
 mtext(side=1,line=2,"grm")
-
-##separately by item
-## est.plot<-function(resp) {
-##     library(mirt)
-##     mod<-list()
-##     mod$pcm <- mirt(resp, itemtype="Rasch",1)
-##     mod$grm<- mirt(resp, 1,itemtype="graded") 
-##     mod$gpcm <- mirt(resp, itemtype="gpcm",1)
-##     resp->resp01
-##     for (i in 1:ncol(resp01)) ifelse(resp01[,i]>0,1,0)->resp01[,i]
-##     mod$`2pl.lo` <- mirt(resp01, itemtype="2PL",1)
-##     resp->resp01
-##     for (i in 1:ncol(resp01)) ifelse(resp01[,i]>1,1,0)->resp01[,i]
-##     mod$`2pl.hi` <- mirt(resp01, itemtype="2PL",1)
-##                                         #
-##     fun<-function(mod,i,th) {
-##         extract.item(mod,i)->extr
-##         iteminfo(extr,th)
-##     }
-##     lapply(mod,coef,IRTpars=TRUE,simplify=TRUE)->co
-##                                         #
-##     cols<-c("black","red","green","blue","blue")
-##     lty<-c(1,1,1,2,3)
-##     for (i in 1:ncol(resp)) {
-##         th<-matrix(seq(-4,4,length.out=1000))
-##         lapply(mod,fun,i=i,th=th)->out
-##         max(unlist(out))->M
-##         plot(NULL,xlim=range(th),ylim=c(0,M),xlab="",ylab="")
-##         for (j in 1:length(out)) {
-##             lines(th,out[[j]],col=cols[j],lty=lty[j])
-##             co[[j]][[1]]->mat
-##             if (j>3) mat[,1:2]->mat
-##             (ncol(mat)-1):1->vals
-##             #mtext(side=3,at=mat[i,-1],vals[1:(ncol(mat)-1)],col=cols[j],line=0+.5*j,cex=.7)
-##             legend("topright",c("pcm","grm","gpcm","2pl.lo","2pl.hi"),lty=lty,col=cols,lwd=1,bty="n")
-##         }
-##     }
-##     NULL
-## }
-
-## par(mfcol=c(5,4),mar=c(3,3,4,1),mgp=c(2,1,0),oma=c(1,1,2,1))
-##                                         #
-## sim.gpcm(N=500,n=5,k=5)->resp
-## est.plot(resp)
-## mtext(side=1,line=2,"pcm")
-##                                         #
-## sim.gpcm(N=500,n=5,k=5,a=sort(runif(10,min=.75,max=1.3)))->resp
-## est.plot(resp)
-## mtext(side=1,line=2,"gpcm")
-##                                         #
-## sim.grm(N=5000,n=5,k=5,a=rep(1,10))->resp
-## est.plot(resp)
-## mtext(side=1,line=2,"grm, a=1")
-##                                         #
-## sim.grm(N=5000,n=5,k=5,a=sort(2*runif(10,min=.75,max=1.3)))->resp
-## est.plot(resp)
-## mtext(side=1,line=2,"grm")
