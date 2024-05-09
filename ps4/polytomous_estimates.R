@@ -67,6 +67,7 @@ estfun<-function(model,resp,th) {
     optim(inits,fn=f,resp=resp,th=th,model=model)$par
 }
 
+set.seed(103010)
 b0<- -1
 b1<-0
 a<-1
