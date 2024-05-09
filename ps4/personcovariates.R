@@ -6,4 +6,6 @@ library(lme4)
 m<-lmer(resp~0+(1|id)+item+item:treatment,df)
 fe<-fixef(m)
 tx<-grepl(":",names(fe))
-plot(fe[!tx],fe[tx])
+plot(fe[!tx],fe[tx],xlab='main item effects',ylab='treatment specific item effects',pch=19,cex=2)
+abline(h=mean(fe[tx]))
+
