@@ -13,7 +13,7 @@ Science
 ## environment and repairing it.
 ## Work: The application of science and new technology will make work more interesting.
 ## Future: Thanks to science and technology, there will be more opportunities for the future generations.
-## Benefit The benefits of science are greater than any harmful effect it may have.
+## Benefit: The benefits of science are greater than any harmful effect it may have.
 
 ##q: what do higher numbers mean here?
 ##q: what is this scale "measuring"?

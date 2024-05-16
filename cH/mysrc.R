@@ -36,6 +36,7 @@ plot(easy.pars,xlab="lmer parameters",ylab="mirt parameter",pch=19)
 ##compare person parameters
 person.pars<-cbind(ranef(m1)$id[,1],fscores(m1.mirt)[,1])
 plot(jitter(person.pars[,1]),jitter(person.pars[,2]),xlab="lmer abilities",ylab="mirt abilities",cex=.5) #note the differences in the scales! what's going on?
+##impressive given that the lmer-based estimates are coming from the linear probability model!!
 
 ###############################################################################################
 ##Now let's begin to look at some more questions complicated 
