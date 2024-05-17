@@ -38,6 +38,8 @@ person.pars<-cbind(ranef(m1)$id[,1],fscores(m1.mirt)[,1])
 plot(jitter(person.pars[,1]),jitter(person.pars[,2]),xlab="lmer abilities",ylab="mirt abilities",cex=.5) #note the differences in the scales! what's going on?
 ##impressive given that the lmer-based estimates are coming from the linear probability model!!
 
+##STOP
+
 ###############################################################################################
 ##Now let's begin to look at some more questions complicated 
 
@@ -45,6 +47,8 @@ plot(jitter(person.pars[,1]),jitter(person.pars[,2]),xlab="lmer abilities",ylab=
 VerbAgg$subitem<-paste(VerbAgg$btype,substr(VerbAgg$item,1,2))
 m2<-lmer(r2 ~ 0+mode+subitem+ (1|id), data=VerbAgg)
 summary(m2) ##what do you think?
+
+##STOP
 
 ##Are males more likely to be verbally aggressive?
 m3<-lmer(r2 ~ 0+item+ Gender+(1|id), data=VerbAgg)
@@ -54,6 +58,7 @@ m<-multipleGroup(resp,1,group=gender,invariance=c("slopes","intercepts","free_me
 coef(m)$F$GroupPars
 coef(m)$M$GroupPars
 
+##STOP
 
 ##Are males differentially more likely to say that they will "do" (as opposed to the gender difference for "want")?
 m4<-lmer(r2 ~ 0+mode*Gender+subitem+ (1|id), data=VerbAgg)
