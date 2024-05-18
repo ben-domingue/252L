@@ -37,13 +37,14 @@ lines(th,f(th,resp=c(1,1,0),beta=beta),col="red")
 lines(th,f(th,resp=c(1,0,0),beta=beta),col="black")
 ##looks to be about 0, which is sufficient for our purposes here. 
 
-##6. Returning to questions 1 and 2, can you plot the “test information” as a function of theta (see Eqn 2-6 in Lord). 
+##6. Returning to questions 1 and 2, can you plot the “test information” as a function of theta 
 info<-function(theta,beta) { #note that this DOES NOT depend upon the responses
     kern<-theta-beta
     p<-1/(1+exp(-1*kern))
     q<-1 - p
-    p.prime<- exp(-1*kern)/(1+exp(-1*kern))^2
-    sum(p.prime^2/(q*p))
+                                        #p.prime<- exp(-1*kern)/(1+exp(-1*kern))^2 #(see Eqn 2-6 in Lord).
+                                        #sum(p.prime^2/(q*p))
+    sum(p*q)
 }
 Vectorize(info,"theta")->f
 th<-seq(-4,4,length.out=1000)
