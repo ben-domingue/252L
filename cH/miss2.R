@@ -7,16 +7,17 @@ sim<-function(ni=30,np=2000) {
     b<-rnorm(ni)
     x<-merge(x,data.frame(item=1:ni,a=a,b=b))
     k<-x$th-x$b
-    p<-1/(1+exp(-x$a*k))
-    x$resp<-rbinom(length(p),1,p)
+    x$p<-1/(1+exp(-x$a*k))
+    x$resp<-rbinom(length(x$p),1,x$p)
     x
 }
 
 x<-sim()
-##Now we'll induce purely random missingness 
+##Now we'll induce missinness 
 x$resp.full<-x$resp
-p<-.1
-miss<-rbinom(nrow(x),1,p)
+mmp<-.3 #this will be the Max Missing Probability.
+p2<-mmp-x$p*mmp
+miss<-rbinom(nrow(x),1,p2)
 x$resp<-ifelse(miss==1,NA,x$resp.full)
 
 ##now we're ready for analysis
@@ -26,9 +27,4 @@ resp$id<-NULL
 library(mirt)
 m<-mirt(resp,1,'2PL')
 
-##Your task
-##1. decide what you are going to analyze (options: abilities. item parameters.)
-##2. you can modify sim() if you need to
-##3. you can also compare to the estimates we'd get from analysis of resp.full
-##4. might want to turn p up to something larger to make it more obvious what is going on at the outset
-
+##Now you need to implement your analysis
