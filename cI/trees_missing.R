@@ -36,6 +36,9 @@ for (i in 1:ncol(x)) {
 df<-data.frame(do.call("rbind",L))
 
 library(lme4)
-m1 <- glmer(resp ~ 0 + item:node + (0 + node | id), 
-            #family = binomial,
+m1 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
+            #family = binomial, #let's use linear probabiliy model to save time
             data = df)
+
+m1 #what do you notice about the correlation between person effects? is this reasonable? based on what?
+fe #what do you make of variation in the noden1 estimates as compared to the noden2 estimates?
