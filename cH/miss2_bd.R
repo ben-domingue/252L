@@ -44,7 +44,7 @@ z<-z[order(z$th),]
 xv<-z$th
 yv<-abs(z$th.obs-z$th)
 mm<-loess(yv~xv)
-plot(mm$x,mm$fitted,type='l',col='red')
+plot(mm$x,mm$fitted,type='l',col='red',xlab='true ability',ylab='absolute error')
 ##
 yv<-abs(z$th.full-z$th)
 mm<-loess(yv~xv)
