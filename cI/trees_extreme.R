@@ -1,5 +1,3 @@
-
-
 ##empirical
 dataset<- redivis::user("datapages")$dataset("item_response_warehouse",version="v4.0")
 df <- dataset$table("offlinefriend_bigfive")$to_data_frame()
@@ -14,7 +12,7 @@ x$id<-NULL
 L<-list()
 for (i in 1:ncol(x)) {
     r1<-ifelse(x[,i]<3,0,1) #this is low/high indicator
-    r2<-ifelse(x[,i] %in% c(1,5),1,0)
+    r2<-ifelse(x[,i] %in% c(1,5),1,0) #note this, weird!
     df1<-data.frame(id=1:nrow(x),item=paste('item',i),node='n1',resp=r1)
     df2<-data.frame(id=1:nrow(x),item=paste('item',i),node='n2',resp=r2)
     L[[i]]<-rbind(df1,df2)
