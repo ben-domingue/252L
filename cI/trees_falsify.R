@@ -13,7 +13,7 @@ fun<-function(x) {
     ##
     library(lme4)
     m1 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
-                                        #family = binomial, #let's use linear probabiliy model to save time
+                                        #family = binomial, #let's use linear probability model to save time
                data = df)
     m1
 }
@@ -32,7 +32,7 @@ d<-do.call("rbind",d)
 d<-cbind(0,d)
 x <- simdata(a, d,
              N=n,
-             itemtype = 'gpcm') 
+             itemtype = 'gpcm')  #We are simulating data from the GPCM model [remember this? https://docs.google.com/presentation/d/1CovCiFmIOpKNotlwPdx3hdq1LIE5R8GY8zDSdDLbUO8/edit#slide=id.g2709dcad0ed_1_25]
 fun(x) #what do you note about this?
 
 ##empirical
@@ -47,6 +47,6 @@ table(df$resp)
 
 x<-irw::long2resp(df)
 x$id<-NULL
-fun(x)  #what do you note about this?
-
+m0<-fun(x)  
+m0 #what do you note about this? thoughts? 
 

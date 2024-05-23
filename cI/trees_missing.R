@@ -37,8 +37,9 @@ df<-data.frame(do.call("rbind",L))
 
 library(lme4)
 m1 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
-            #family = binomial, #let's use linear probabiliy model to save time
+            #family = binomial, #let's use linear probability model to save time
             data = df)
 
-m1 #what do you notice about the correlation between person effects? is this reasonable? based on what?
+m1 #what do you notice about the correlation between person effects? is this reasonable? based on what? can you adjust somethign above to make this change?
+fe<-fixef(m1)
 fe #what do you make of variation in the noden1 estimates as compared to the noden2 estimates?

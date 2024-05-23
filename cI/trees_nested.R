@@ -46,6 +46,9 @@ df<-data.frame(do.call("rbind",L))
 ##
 library(lme4)
 m2 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
-                                        #family = binomial, #let's use linear probabiliy model to save time
+                                        #family = binomial, #let's use linear probability model to save time
            data = df)
 m2
+
+##m1 and m2 are weird. why do i say that?
+##we will next test a theory that might be one plausible reason things aren't working here

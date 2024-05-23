@@ -20,8 +20,7 @@ for (i in 1:ncol(x)) {
 df<-data.frame(do.call("rbind",L))
 ##
 library(lme4)
-m1 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
-                                        #family = binomial, #let's use linear probabiliy model to save time
+m3 <- lmer(resp ~ 0 + item:node + (0 + node | id), 
+                                        #family = binomial, #let's use linear probability model to save time
            data = df)
-m1
-
+m3
