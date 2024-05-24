@@ -1,3 +1,4 @@
+# Challenge 1
 Many of the datasets in the IRW have response time. This is not something we've made use of. Dive into this data to see what it might tell you about the measurement process. Some questions you could potentially ask:
 
 1. How much within-person variation is there for a respondent within a test? To the extent that this varies, how does it vary as a function of respondent theta?
