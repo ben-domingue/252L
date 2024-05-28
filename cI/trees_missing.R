@@ -14,8 +14,7 @@ p<-1/(1+exp(-k))
 resp<-p
 for (i in 1:ncol(p)) resp[,i]<-rbinom(nrow(p),1,p[,i])
 
-b2<-rnorm(ni)
-k<-outer(th.miss,b.miss+b2,'-')
+k<-outer(th.miss,b.miss,'-')
 p<-1/(1+exp(-k))
 miss<-p
 for (i in 1:ncol(p)) miss[,i]<-rbinom(nrow(p),1,p[,i])
