@@ -1,6 +1,6 @@
 # Challenge 2
 
-[This data](https://github.com/ben-domingue/252L/blob/master/cJ/challenge2.Rdata) comes from a mixed-format test given to two groupds (grade 3=group 1; grade 4=gropu 2). The first 50 items are dichotomous and seem to function fine. There is a concern that the raters for the polytomous items (51-70) were biased and this affected the scores. 
+[This data](https://github.com/ben-domingue/252L/blob/master/cJ/challenge2.Rdata) comes from a mixed-format test given to two groupds (grade 3=group 1; grade 4=group 2). The first 50 items are dichotomous and seem to function fine. There is a concern that the raters for the polytomous items (51-70) were biased and this affected the scores. 
 Analysis of DIF with polytomous items is complicated. There are approaches that you could look up, but let's think creatively given what we already know how to do.
 Here are some ideas:
 
