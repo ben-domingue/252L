@@ -3,8 +3,9 @@ Many of the datasets in the IRW have response time. This is not something we've 
 
 1. How much within-person variation is there for a respondent within a test? To the extent that this varies, how does it vary as a function of respondent theta?
 
-2. Can you include it as a predictor of responses in a model of accuracy (similar to what we did here in m3: https://github.com/ben-domingue/252L/blob/master/cH/mysrc.R)?
+2. Can you include it as a predictor of responses in a model of accuracy? This would be similar to what we did [here](https://github.com/ben-domingue/252L/blob/master/cH/mysrc.R) in model m3. The covariate (response time rather than gender) would be varying at the response-level not the respondent-level but the mechanics with `lmer` would be unchanged. 
 
+One potential issue in dealing with response time pertains to the potential observation of very long response times that may be problematic. You might wish to consider excluding such outliers. Another standard approach is to consider the logarithm of resopnse time to simiarly deal with the fact that it is skewed.
 
 IRW data with response time (as of version 4.0):
 ```
