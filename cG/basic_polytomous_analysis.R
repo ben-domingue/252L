@@ -74,7 +74,7 @@ for (i in 1:length(mods)) out[[i]]<-f(mods[[i]],n)
 
 par(mfrow=c(2,2),mgp=c(2,1,0),mar=c(3,3,1,1))
 for (i in 1:4) {
-    plot(NULL,xlim=c(-5,5),ylim=0:1,xlab='theta',ylab='Pr')
+    plot(NULL,xlim=c(-5,5),ylim=0:1,xlab='theta',ylab=paste('Pr(y=',i-1,sep=''))
     for (j in 1:length(out)) {
         z<-out[[j]]
         lines(z[[1]],z[[2]][,i])
